@@ -1,142 +1,162 @@
+import argparse
+from concurrent.futures import ThreadPoolExecutor
+import importlib.util
 import json
 import os
 from pathlib import Path
-import runpy
 import shlex
-import subprocess
 import sys
 import tempfile
+import time
 import types
 import unittest
 from unittest.mock import patch
 
 TRACER = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TRACER))
-from trace_pipeline import TracePipeline, run_phase
+spec = importlib.util.spec_from_file_location("two_phase_launcher", TRACER / "run_hw_trace.py")
+launcher = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(launcher)
 
 
-class TracePipelineTest(unittest.TestCase):
+class TracePhasesTest(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
         self.root = Path(self.temporary.name)
         self.addCleanup(self.temporary.cleanup)
+        self.here = self.root / "checkout/util/tracer_nvbit"
+        (self.here / "tracer_tool/formatting").mkdir(parents=True)
+        (self.here / "tracer_tool/traces-processing").mkdir()
+        (self.here / "tracer_tool/tracer_tool.so").write_bytes(b"test tracer identity")
+        self.applications = self.root / "applications"
+        self.applications.mkdir()
+        self.executable(self.applications / "fixture", """
++from pathlib import Path
++import os
++root = Path(os.environ['TRACES_FOLDER']) / 'traces'
++(root / 'kernelslist_ctx_fixture').write_text('kernel-1.trace.xz\\n')
++(root / 'kernel-1.trace.records').write_bytes(b'unit workflow record data')
++""".replace("\n+", "\n"))
+        self.executable(self.here / "tracer_tool/formatting/format-trace-capture", """
++import os, time
++from pathlib import Path
++assert os.environ['CUDA_VISIBLE_DEVICES'] == ''
++assert 'CUDA_INJECTION64_PATH' not in os.environ
++assert 'LD_PRELOAD' not in os.environ
++if os.environ.get('TEST_CPU_STARTED'):
++    Path(os.environ['TEST_CPU_STARTED']).touch()
++    deadline = time.monotonic() + 5
++    while not Path(os.environ['TEST_CPU_RELEASE']).exists():
++        if time.monotonic() > deadline:
++            raise RuntimeError('CPU test gate was not released')
++        time.sleep(0.01)
++""".replace("\n+", "\n"))
+        self.executable(self.here / "tracer_tool/traces-processing/post-traces-processing", "pass")
+        self.common = types.ModuleType("common")
+        self.common.load_defined_yamls = lambda: None
+        self.common.gen_apps_from_suite_list = lambda suites: [(str(self.applications), str(self.applications), "fixture", [{"args": "", "name": "input"}])]
+        self.common.get_cuda_version = lambda directory: "12.9"
+        self.common.get_argfoldername = lambda row: row["name"]
+        self.common.file_option_test = lambda path, default, directory: path
+        self.common.dir_option_test = self.directory
+        self.common.PathMissing = FileNotFoundError
+        self.patch_here = patch.object(launcher, "HERE", self.here)
+        self.patch_here.start(); self.addCleanup(self.patch_here.stop)
+        self.patch_common = patch.dict(sys.modules, {"common": self.common})
+        self.patch_common.start(); self.addCleanup(self.patch_common.stop)
 
-    def script(self, directory, name, body):
-        directory.mkdir(parents=True, exist_ok=True)
-        command = shlex.join([sys.executable, "-c", body])
-        (directory / name).write_text("set -e\n" + command + "\n")
+    @staticmethod
+    def directory(path, default, directory):
+        if not Path(path).is_dir():
+            raise FileNotFoundError(path)
+        return path
 
-    def case(self, name, capture="pass", cpu="pass"):
-        directory = self.root / name
-        self.script(directory, "run_capture.sh", capture)
-        self.script(directory, "run_postprocess.sh", cpu)
-        return directory
+    @staticmethod
+    def executable(path, body):
+        path.write_text("#!" + sys.executable + "\n" + body + "\n")
+        path.chmod(0o755)
 
-    def test_next_capture_runs_before_prior_cpu_completion(self):
-        marker = self.root / "capture-two"
-        started = self.root / "cpu-one-started"
-        first = self.case("one", cpu=f"""
-import pathlib, time
-pathlib.Path({str(started)!r}).touch()
-deadline = time.monotonic() + 5
-while not pathlib.Path({str(marker)!r}).exists():
-    if time.monotonic() > deadline:
-        raise RuntimeError('capture two did not overlap CPU one')
-    time.sleep(0.01)
-""")
-        second = self.case("two", capture=f"""
-import pathlib, time
-deadline = time.monotonic() + 5
-while not pathlib.Path({str(started)!r}).exists():
-    if time.monotonic() > deadline:
-        raise RuntimeError('CPU one did not start')
-    time.sleep(0.01)
-pathlib.Path({str(marker)!r}).touch()
-""")
-        with TracePipeline(workers=1, max_pending=2) as pipeline:
-            pipeline.capture(first)
-            pipeline.capture(second)
-        cpu = json.loads((first / "postprocess.receipt.json").read_text())
-        capture = json.loads((second / "capture.receipt.json").read_text())
-        self.assertLess(capture["started_monotonic_ns"], cpu["ended_monotonic_ns"])
-        self.assertEqual(cpu["exit_code"], 0)
+    def arguments(self, name):
+        return argparse.Namespace(results_dir=self.root / name, traces_dir=self.root / (name + "-traces"), benchmark_list="fixture", device_num="test-device", kernel_number=-99, terminate_upon_limit=False, spinlock_handling="none", spinlock_fast_forward_iterations=1, postprocess_threads=2, postprocess_format="text", cpu_workers=1)
 
-    def test_queue_depth_one_waits_for_cpu_before_next_capture(self):
-        marker = self.root / "cpu-finished"
-        first = self.case("one", cpu=f"import pathlib; pathlib.Path({str(marker)!r}).touch()")
-        second = self.case("two", capture=f"import pathlib; assert pathlib.Path({str(marker)!r}).exists()")
-        with TracePipeline(workers=1, max_pending=1) as pipeline:
-            pipeline.capture(first)
-            pipeline.capture(second)
-        cpu = json.loads((first / "postprocess.receipt.json").read_text())
-        capture = json.loads((second / "capture.receipt.json").read_text())
-        self.assertLessEqual(cpu["ended_monotonic_ns"], capture["started_monotonic_ns"])
+    def test_gpu_phase_never_constructs_or_joins_cpu_workers(self):
+        args = self.arguments("GPU only")
+        with patch.object(launcher, "ThreadPoolExecutor", side_effect=AssertionError("GPU phase invoked CPU work")):
+            self.assertEqual(launcher.gpu_phase(args), 0)
+        case = args.results_dir / "fixture/input"
+        self.assertTrue((case / "gpu.receipt.json").exists())
+        self.assertFalse((case / "run_cpu.sh").exists())
+        self.assertFalse((args.results_dir / "cpu-traces.json").exists())
+        script = (case / "run_gpu.sh").read_text()
+        self.assertIn("TRACE_DEFER_FORMATTING=1", script)
+        self.assertNotIn("format-trace-capture", script)
 
-    def test_zero_workers_preserves_serial_order(self):
-        first = self.case("one")
-        second = self.case("two")
-        with TracePipeline() as pipeline:
-            pipeline.capture(first)
-            pipeline.capture(second)
-        cpu = json.loads((first / "postprocess.receipt.json").read_text())
-        capture = json.loads((second / "capture.receipt.json").read_text())
-        self.assertLessEqual(cpu["ended_monotonic_ns"], capture["started_monotonic_ns"])
+    def test_cpu_phase_uses_saved_gpu_manifest_without_cuda_discovery(self):
+        args = self.arguments("cpu-input")
+        self.assertEqual(launcher.gpu_phase(args), 0)
+        self.common.get_cuda_version = lambda directory: self.fail("CPU phase asked for CUDA")
+        self.common.gen_apps_from_suite_list = lambda suites: self.fail("CPU phase discovered apps")
+        with patch.dict(os.environ, {"CUDA_VISIBLE_DEVICES": "test-device", "CUDA_INJECTION64_PATH": "test-only", "LD_PRELOAD": ""}):
+            self.assertEqual(launcher.cpu_phase(args), 0)
+        self.assertEqual(json.loads((args.results_dir / "cpu-traces.json").read_text())["cases"][0]["status"], "processed")
 
-    def test_cpu_has_no_device_or_cuda_injection(self):
-        directory = self.case("CPU only", cpu="""
-import os
-assert os.environ['CUDA_VISIBLE_DEVICES'] == ''
-assert 'CUDA_INJECTION64_PATH' not in os.environ
-assert 'LD_PRELOAD' not in os.environ
-""")
-        with patch.dict(os.environ, {"CUDA_VISIBLE_DEVICES": "test-device", "CUDA_INJECTION64_PATH": "test-injection", "LD_PRELOAD": ""}):
-            run_phase(directory, "run_postprocess.sh", "postprocess")
+    def test_next_gpu_phase_completes_while_cpu_phase_is_held(self):
+        first = self.arguments("first")
+        second = self.arguments("second")
+        self.assertEqual(launcher.gpu_phase(first), 0)
+        started = self.root / "CPU-started"
+        release = self.root / "CPU-release"
+        with patch.dict(os.environ, {"TEST_CPU_STARTED": str(started), "TEST_CPU_RELEASE": str(release)}):
+            with ThreadPoolExecutor(max_workers=1) as pool:
+                worker = pool.submit(launcher.cpu_phase, first)
+                try:
+                    deadline = time.monotonic() + 5
+                    while not started.exists():
+                        if time.monotonic() > deadline:
+                            self.fail("Separate CPU process did not start")
+                        time.sleep(0.01)
+                    self.assertEqual(launcher.gpu_phase(second), 0)
+                    self.assertFalse(worker.done())
+                    self.assertTrue((second.results_dir / "gpu-traces.json").exists())
+                finally:
+                    release.touch()
+                self.assertEqual(worker.result(), 0)
 
-    def test_capture_failure_keeps_evidence_and_skips_cpu(self):
-        directory = self.case("failed-capture", capture="from pathlib import Path; Path('raw-evidence').write_text('partial'); raise SystemExit(7)", cpu="raise RuntimeError('CPU must not run')")
-        with self.assertRaises(subprocess.CalledProcessError):
-            with TracePipeline(workers=1) as pipeline:
-                pipeline.capture(directory)
-        self.assertEqual((directory / "raw-evidence").read_text(), "partial")
-        self.assertFalse((directory / "postprocess.receipt.json").exists())
-        self.assertEqual(json.loads((directory / "capture.receipt.json").read_text())["exit_code"], 7)
+    def test_cpu_failure_does_not_change_collected_gpu_status(self):
+        args = self.arguments("CPU failure")
+        self.assertEqual(launcher.gpu_phase(args), 0)
+        before = (args.results_dir / "gpu-traces.json").read_bytes()
+        self.executable(self.here / "tracer_tool/formatting/format-trace-capture", "raise SystemExit(9)")
+        self.assertEqual(launcher.cpu_phase(args), 1)
+        self.assertEqual((args.results_dir / "gpu-traces.json").read_bytes(), before)
+        self.assertTrue((args.traces_dir / "fixture/input/traces/kernel-1.trace.records").exists())
 
-    def test_cpu_failure_propagates(self):
-        directory = self.case("failed-cpu", cpu="raise SystemExit(9)")
-        with self.assertRaises(subprocess.CalledProcessError):
-            with TracePipeline(workers=1) as pipeline:
-                pipeline.capture(directory)
-        self.assertEqual(json.loads((directory / "postprocess.receipt.json").read_text())["exit_code"], 9)
+    def test_gpu_failure_is_recorded_and_not_given_to_cpu(self):
+        args = self.arguments("GPU failure")
+        self.executable(self.applications / "fixture", "raise SystemExit(7)")
+        self.assertEqual(launcher.gpu_phase(args), 1)
+        self.assertEqual(launcher.cpu_phase(args), 0)
+        self.assertEqual(json.loads((args.results_dir / "gpu-traces.json").read_text())["cases"][0]["status"], "failed")
+        self.assertEqual(json.loads((args.results_dir / "cpu-traces.json").read_text())["cases"], [])
 
-    def test_repeated_directory_waits_before_reusing_files(self):
-        directory = self.case("same-directory", cpu="from pathlib import Path; Path('CPU-complete').touch()")
-        with TracePipeline(workers=1) as pipeline:
-            pipeline.capture(directory)
-            pipeline.wait_directory(directory)
-            self.assertTrue((directory / "CPU-complete").exists())
-            self.assertNotIn(str(directory.resolve()), pipeline.pending)
+    def test_existing_trace_directory_is_preserved(self):
+        first = self.arguments("first-owner")
+        self.assertEqual(launcher.gpu_phase(first), 0)
+        record = first.traces_dir / "fixture/input/traces/kernel-1.trace.records"
+        before = record.read_bytes()
+        second = self.arguments("second-owner")
+        second.traces_dir = first.traces_dir
+        with self.assertRaises(FileExistsError):
+            launcher.gpu_phase(second)
+        self.assertEqual(record.read_bytes(), before)
 
-    def test_launcher_norun_writes_separate_scripts(self):
-        common = types.ModuleType("common")
-        binary = self.root / "fixture"
-        binary.touch()
-        common.load_defined_yamls = lambda: None
-        common.gen_apps_from_suite_list = lambda suites: [(str(self.root), str(self.root), "fixture", [{"args": "32 4", "name": "input"}])]
-        common.get_cuda_version = lambda directory: "12.9"
-        common.get_argfoldername = lambda argpair: argpair["name"]
-        common.dir_option_test = lambda name, default, directory: name
-        common.file_option_test = lambda name, default, directory: name
-        common.PathMissing = FileNotFoundError
-        output = self.root / "output with spaces"
-        argv = [str(TRACER / "run_hw_trace.py"), "--norun", "--spinlock_handling", "none", "--postprocess-workers", "1", "--results-dir", str(output), "--keep-raw", "--limit_kernel_number", "4"]
-        with patch.dict(sys.modules, {"common": common}), patch.object(sys, "argv", argv):
-            runpy.run_path(str(TRACER / "run_hw_trace.py"), run_name="__main__")
-        directory = output / "fixture/input"
-        self.assertEqual((directory / "run.sh").read_text(), "set -e\nbash run_capture.sh\nbash run_postprocess.sh\n")
-        self.assertIn('DYNAMIC_KERNEL_RANGE="0-4"', (directory / "run_capture.sh").read_text())
-        self.assertNotIn("rm -f", (directory / "run_postprocess.sh").read_text())
-        self.assertIn("CUDA_VISIBLE_DEVICES=", (directory / "run_postprocess.sh").read_text())
-        self.assertFalse((directory / "capture.receipt.json").exists())
+    def test_existing_collection_is_preserved(self):
+        args = self.arguments("retained")
+        self.assertEqual(launcher.gpu_phase(args), 0)
+        manifest = (args.results_dir / "gpu-traces.json").read_bytes()
+        with self.assertRaisesRegex(RuntimeError, "fresh GPU results"):
+            launcher.gpu_phase(args)
+        self.assertEqual((args.results_dir / "gpu-traces.json").read_bytes(), manifest)
 
 
 if __name__ == "__main__":

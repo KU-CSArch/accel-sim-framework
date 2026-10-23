@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "util/tracer_nvbit/tests",
+    "-v"
+  ],
+  "exit_code": 0,
+  "stdout": "GPU fixture/input collected\nCPU fixture/input failed\nGPU fixture/input collected\nCPU fixture/input processed\nGPU fixture/input collected\nGPU fixture/input collected\nGPU fixture/input failed\nGPU fixture/input collected\nGPU fixture/input collected\nGPU fixture/input collected\nCPU fixture/input processed\n",
+  "stderr": "test_cpu_failure_does_not_change_collected_gpu_status (test_trace_pipeline.TracePhasesTest.test_cpu_failure_does_not_change_collected_gpu_status) ... ok\ntest_cpu_phase_uses_saved_gpu_manifest_without_cuda_discovery (test_trace_pipeline.TracePhasesTest.test_cpu_phase_uses_saved_gpu_manifest_without_cuda_discovery) ... ok\ntest_existing_collection_is_preserved (test_trace_pipeline.TracePhasesTest.test_existing_collection_is_preserved) ... ok\ntest_existing_trace_directory_is_preserved (test_trace_pipeline.TracePhasesTest.test_existing_trace_directory_is_preserved) ... ok\ntest_gpu_failure_is_recorded_and_not_given_to_cpu (test_trace_pipeline.TracePhasesTest.test_gpu_failure_is_recorded_and_not_given_to_cpu) ... ok\ntest_gpu_phase_never_constructs_or_joins_cpu_workers (test_trace_pipeline.TracePhasesTest.test_gpu_phase_never_constructs_or_joins_cpu_workers) ... ok\ntest_next_gpu_phase_completes_while_cpu_phase_is_held (test_trace_pipeline.TracePhasesTest.test_next_gpu_phase_completes_while_cpu_phase_is_held) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.453s\n\nOK\n"
+}

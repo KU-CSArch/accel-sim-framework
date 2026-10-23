@@ -1,0 +1,6 @@
+{
+  "scope": "Reject an already-existing per-case trace directory before capture; prevents a second results namespace from replacing another collection. No change to fresh captures, formatter, producer or model.",
+  "tested_capture_launcher_sha256": "743e6733c2e801a8853ad0ae73bd6857ab7cf683ad61969bb6a4b336a9fa6d38",
+  "published_launcher_sha256": "5427adcacde0c656a00bbc471ba79826956ed70d20d0b66f0506bf4716251358",
+  "test": "test_existing_trace_directory_is_preserved"
+}

@@ -1,0 +1,891 @@
+{
+  "scope": "Host capture/CPU trace-processing cost. No native instruction timing claim.",
+  "batches": [
+    {
+      "repeat": 0,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-inline",
+      "gpu_phase": {
+        "wall_seconds": 20.589101219
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:03:48.310609+00:00",
+        "started_monotonic_ns": 7705646214605207,
+        "ended_monotonic_ns": 7705652759152854,
+        "wall_seconds": 6.544547647
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-inline/vector-add/one-million-elements/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-inline/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:03:27.704976+00:00",
+            "ended_utc": "2026-10-23T09:03:48.293258+00:00",
+            "started_monotonic_ns": 7705625608987356,
+            "ended_monotonic_ns": 7705646197250385,
+            "wall_seconds": 20.588263029,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 20.588263029,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 0,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase",
+          "-B",
+          "trace-phase-vector-add",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:03:54.856115+00:00",
+        "started_monotonic_ns": 7705652760111424,
+        "ended_monotonic_ns": 7705671835904418,
+        "wall_seconds": 19.075792994
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:04:13.943779+00:00",
+        "started_monotonic_ns": 7705671847775917,
+        "ended_monotonic_ns": 7705685597669292,
+        "wall_seconds": 13.749893375
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:03:55.075541+00:00",
+            "ended_utc": "2026-10-23T09:04:13.917648+00:00",
+            "started_monotonic_ns": 7705652979559387,
+            "ended_monotonic_ns": 7705671821641506,
+            "wall_seconds": 18.842082119,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 18.842082119,
+      "raw_record_bytes": 2717932808,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 1,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase",
+          "-B",
+          "trace-phase-vector-add",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:04:27.694632+00:00",
+        "started_monotonic_ns": 7705685598629062,
+        "ended_monotonic_ns": 7705703549998214,
+        "wall_seconds": 17.951369152
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:04:45.661041+00:00",
+        "started_monotonic_ns": 7705703565037275,
+        "ended_monotonic_ns": 7705717152646656,
+        "wall_seconds": 13.587609381
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:04:27.915797+00:00",
+            "ended_utc": "2026-10-23T09:04:45.582124+00:00",
+            "started_monotonic_ns": 7705685819815097,
+            "ended_monotonic_ns": 7705703486116493,
+            "wall_seconds": 17.666301396,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 17.666301396,
+      "raw_record_bytes": 2717932808,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 1,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-inline",
+      "gpu_phase": {
+        "wall_seconds": 19.482371302
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:05:18.747081+00:00",
+        "started_monotonic_ns": 7705736651078216,
+        "ended_monotonic_ns": 7705743153512208,
+        "wall_seconds": 6.502433992
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-inline/vector-add/one-million-elements/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-inline/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:04:59.250151+00:00",
+            "ended_utc": "2026-10-23T09:05:18.731706+00:00",
+            "started_monotonic_ns": 7705717154161394,
+            "ended_monotonic_ns": 7705736635697063,
+            "wall_seconds": 19.481535669,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 19.481535669,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 2,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-inline",
+      "gpu_phase": {
+        "wall_seconds": 19.285204755
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:05:44.550020+00:00",
+        "started_monotonic_ns": 7705762454016272,
+        "ended_monotonic_ns": 7705769047297340,
+        "wall_seconds": 6.593281068
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-inline/vector-add/one-million-elements/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-inline/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:05:25.250988+00:00",
+            "ended_utc": "2026-10-23T09:05:44.535369+00:00",
+            "started_monotonic_ns": 7705743154997770,
+            "ended_monotonic_ns": 7705762439362474,
+            "wall_seconds": 19.284364704,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 19.284364704,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 2,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase",
+          "-B",
+          "trace-phase-vector-add",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:05:51.144300+00:00",
+        "started_monotonic_ns": 7705769048296905,
+        "ended_monotonic_ns": 7705790931648441,
+        "wall_seconds": 21.883351536
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:06:13.042079+00:00",
+        "started_monotonic_ns": 7705790946076021,
+        "ended_monotonic_ns": 7705804859758130,
+        "wall_seconds": 13.913682109
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:05:51.379383+00:00",
+            "ended_utc": "2026-10-23T09:06:12.999460+00:00",
+            "started_monotonic_ns": 7705769283401983,
+            "ended_monotonic_ns": 7705790903452660,
+            "wall_seconds": 21.620050677,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 21.620050677,
+      "raw_record_bytes": 2717932808,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 3,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase",
+          "-B",
+          "trace-phase-vector-add",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:06:26.956817+00:00",
+        "started_monotonic_ns": 7705804860814222,
+        "ended_monotonic_ns": 7705824428932607,
+        "wall_seconds": 19.568118385
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:06:46.541255+00:00",
+        "started_monotonic_ns": 7705824445252151,
+        "ended_monotonic_ns": 7705838312361095,
+        "wall_seconds": 13.867108944
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:06:27.180042+00:00",
+            "ended_utc": "2026-10-23T09:06:46.416989+00:00",
+            "started_monotonic_ns": 7705805084062770,
+            "ended_monotonic_ns": 7705824320982174,
+            "wall_seconds": 19.236919404,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 19.236919404,
+      "raw_record_bytes": 2717932808,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 3,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-inline",
+      "gpu_phase": {
+        "wall_seconds": 19.949061099
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:07:20.372457+00:00",
+        "started_monotonic_ns": 7705858276453454,
+        "ended_monotonic_ns": 7705864880236888,
+        "wall_seconds": 6.603783434
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-inline/vector-add/one-million-elements/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-inline/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:07:00.409943+00:00",
+            "ended_utc": "2026-10-23T09:07:20.358222+00:00",
+            "started_monotonic_ns": 7705838313951684,
+            "ended_monotonic_ns": 7705858262215945,
+            "wall_seconds": 19.948264261,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 19.948264261,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 4,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-inline",
+      "gpu_phase": {
+        "wall_seconds": 19.641347862
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:07:46.632525+00:00",
+        "started_monotonic_ns": 7705884536521065,
+        "ended_monotonic_ns": 7705891316712227,
+        "wall_seconds": 6.780191162
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-inline/vector-add/one-million-elements/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-inline/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:07:26.977801+00:00",
+            "ended_utc": "2026-10-23T09:07:46.618315+00:00",
+            "started_monotonic_ns": 7705864881810084,
+            "ended_monotonic_ns": 7705884522307777,
+            "wall_seconds": 19.640497693,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 19.640497693,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 4
+    },
+    {
+      "repeat": 4,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase",
+          "-B",
+          "trace-phase-vector-add",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:07:53.413955+00:00",
+        "started_monotonic_ns": 7705891317952287,
+        "ended_monotonic_ns": 7705912643670045,
+        "wall_seconds": 21.325717758
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T09:08:14.753764+00:00",
+        "started_monotonic_ns": 7705912657760332,
+        "ended_monotonic_ns": 7705926323848357,
+        "wall_seconds": 13.666088025
+      },
+      "cases": [
+        {
+          "binary": "vector-add",
+          "record": {
+            "experiment": "trace-vector-add",
+            "elements": 1048576,
+            "blocks": 4096,
+            "threads_per_block": 256,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0
+              }
+            ]
+          },
+          "golden_sha256": "f808e3393bd28fe3f3c8fbefb39a5b4a27dae6c343d8d88f944847521239df82",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T09:07:53.680107+00:00",
+            "ended_utc": "2026-10-23T09:08:14.691842+00:00",
+            "started_monotonic_ns": 7705891584130627,
+            "ended_monotonic_ns": 7705912595835013,
+            "wall_seconds": 21.011704386,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 21.011704386,
+      "raw_record_bytes": 2717932808,
+      "numerical_outputs_correct": 4
+    }
+  ],
+  "source_hashes": {
+    "util/tracer_nvbit/run_hw_trace.py": "743e6733c2e801a8853ad0ae73bd6857ab7cf683ad61969bb6a4b336a9fa6d38",
+    "util/tracer_nvbit/trace_pipeline.py": "7405fe1093cac52780f72dfee7a63437ce7c62c63a369b6491b856ae346218b9",
+    "util/tracer_nvbit/tracer_tool/tracer_tool.so": "2394534e1b280e95111f371b63aef54223727f3c8f9206b2744a967d21ebca6b",
+    "util/tracer_nvbit/tracer_tool/formatting/format-trace-capture": "192c920c8f35421d718186ffe0cf6bd39328f2f4b338a25d38d4741ffa6d7d94"
+  }
+}

@@ -1,0 +1,529 @@
+{
+  "passed": true,
+  "scope": "Causal phase independence. The CPU pause is deliberate and is excluded from throughput measurements.",
+  "events": [
+    {
+      "name": "GPU capture A started",
+      "monotonic_ns": 7705575952213371,
+      "utc": "2026-10-23T09:02:38.048217+00:00",
+      "argv": [
+        "/home/inje/anaconda3/bin/python3",
+        "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+        "--phase",
+        "gpu",
+        "--results-dir",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/capture-A",
+        "--traces-dir",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/independence-attempt02/capture-A",
+        "-B",
+        "trace-pipeline-validation:fadd-c1-o0",
+        "-D",
+        "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+      ]
+    },
+    {
+      "name": "GPU capture A finished",
+      "monotonic_ns": 7705583278692634,
+      "utc": "2026-10-23T09:02:45.374698+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "CPU phase A started",
+      "monotonic_ns": 7705583281451805,
+      "utc": "2026-10-23T09:02:45.377456+00:00",
+      "pid": 497819,
+      "argv": [
+        "/home/inje/anaconda3/bin/python3",
+        "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+        "--phase",
+        "cpu",
+        "--results-dir",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/capture-A"
+      ]
+    },
+    {
+      "name": "CPU formatter A held",
+      "monotonic_ns": 7705583338661938,
+      "utc": "2026-10-23T09:02:45.434666+00:00",
+      "identity": {
+        "pid": 497822,
+        "start_ticks": "770558333",
+        "command": "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/tracer_tool/formatting/format-trace-capture\u0000/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/independence-attempt02/capture-A/fadd-c1-o0/one-warp-2048-rounds/traces\u0000"
+      }
+    },
+    {
+      "name": "native-00 started",
+      "monotonic_ns": 7705583339208432,
+      "utc": "2026-10-23T09:02:45.435210+00:00",
+      "argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "7",
+        "3"
+      ]
+    },
+    {
+      "name": "native-00 finished",
+      "monotonic_ns": 7705583758778367,
+      "utc": "2026-10-23T09:02:45.854784+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "native-01 started",
+      "monotonic_ns": 7705583759734404,
+      "utc": "2026-10-23T09:02:45.855736+00:00",
+      "argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "7",
+        "3"
+      ]
+    },
+    {
+      "name": "native-01 finished",
+      "monotonic_ns": 7705584174968600,
+      "utc": "2026-10-23T09:02:46.270973+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "native-02 started",
+      "monotonic_ns": 7705584175733871,
+      "utc": "2026-10-23T09:02:46.271735+00:00",
+      "argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "7",
+        "3"
+      ]
+    },
+    {
+      "name": "native-02 finished",
+      "monotonic_ns": 7705584642636218,
+      "utc": "2026-10-23T09:02:46.738641+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "native-03 started",
+      "monotonic_ns": 7705584643426057,
+      "utc": "2026-10-23T09:02:46.739428+00:00",
+      "argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "7",
+        "3"
+      ]
+    },
+    {
+      "name": "native-03 finished",
+      "monotonic_ns": 7705585063390279,
+      "utc": "2026-10-23T09:02:47.159397+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "native-04 started",
+      "monotonic_ns": 7705585064309856,
+      "utc": "2026-10-23T09:02:47.160312+00:00",
+      "argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "7",
+        "3"
+      ]
+    },
+    {
+      "name": "native-04 finished",
+      "monotonic_ns": 7705585530850168,
+      "utc": "2026-10-23T09:02:47.626855+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "native-05 started",
+      "monotonic_ns": 7705585605186402,
+      "utc": "2026-10-23T09:02:47.701190+00:00",
+      "argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "7",
+        "3"
+      ]
+    },
+    {
+      "name": "native-05 finished",
+      "monotonic_ns": 7705586074139337,
+      "utc": "2026-10-23T09:02:48.170145+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-00 started",
+      "monotonic_ns": 7705586093131645,
+      "utc": "2026-10-23T09:02:48.189135+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-00/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-00/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-00 finished",
+      "monotonic_ns": 7705588062467539,
+      "utc": "2026-10-23T09:02:50.158472+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-01 started",
+      "monotonic_ns": 7705588063202873,
+      "utc": "2026-10-23T09:02:50.159204+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-01/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-01/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-01 finished",
+      "monotonic_ns": 7705589932441090,
+      "utc": "2026-10-23T09:02:52.028446+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-02 started",
+      "monotonic_ns": 7705589933171625,
+      "utc": "2026-10-23T09:02:52.029173+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-02/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-02/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-02 finished",
+      "monotonic_ns": 7705591854486145,
+      "utc": "2026-10-23T09:02:53.950491+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-03 started",
+      "monotonic_ns": 7705591855283738,
+      "utc": "2026-10-23T09:02:53.951285+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-03/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-03/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-03 finished",
+      "monotonic_ns": 7705593817090200,
+      "utc": "2026-10-23T09:02:55.913096+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-04 started",
+      "monotonic_ns": 7705593817830584,
+      "utc": "2026-10-23T09:02:55.913832+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-04/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-04/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-04 finished",
+      "monotonic_ns": 7705595687485870,
+      "utc": "2026-10-23T09:02:57.783493+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-05 started",
+      "monotonic_ns": 7705595688348136,
+      "utc": "2026-10-23T09:02:57.784350+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-05/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-05/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-05 finished",
+      "monotonic_ns": 7705597605933263,
+      "utc": "2026-10-23T09:02:59.701938+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-06 started",
+      "monotonic_ns": 7705597606733611,
+      "utc": "2026-10-23T09:02:59.702735+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-06/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-06/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-06 finished",
+      "monotonic_ns": 7705599524945662,
+      "utc": "2026-10-23T09:03:01.620951+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "ncu-held-07 started",
+      "monotonic_ns": 7705599525732916,
+      "utc": "2026-10-23T09:03:01.621735+00:00",
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--clock-control",
+        "none",
+        "--cache-control",
+        "none",
+        "--metrics",
+        "gpu__time_duration.sum,sm__cycles_elapsed.max,smsp__inst_issued.sum",
+        "--launch-skip",
+        "3",
+        "--launch-count",
+        "1",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-07/ncu.csv",
+        "--export",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-07/profile",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/fadd-c1-o0",
+        "1",
+        "2048",
+        "1",
+        "1",
+        "1",
+        "3"
+      ]
+    },
+    {
+      "name": "ncu-held-07 finished",
+      "monotonic_ns": 7705601459438362,
+      "utc": "2026-10-23T09:03:03.555443+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "GPU capture B started",
+      "monotonic_ns": 7705601460178065,
+      "utc": "2026-10-23T09:03:03.556180+00:00",
+      "argv": [
+        "/home/inje/anaconda3/bin/python3",
+        "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+        "--phase",
+        "gpu",
+        "--results-dir",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/capture-B",
+        "--traces-dir",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/independence-attempt02/capture-B",
+        "-B",
+        "trace-pipeline-validation:imad-c1-o0",
+        "-D",
+        "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+      ]
+    },
+    {
+      "name": "GPU capture B finished",
+      "monotonic_ns": 7705608786816850,
+      "utc": "2026-10-23T09:03:10.882822+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "All following GPU jobs completed while CPU formatter A remained held",
+      "monotonic_ns": 7705608787511707,
+      "utc": "2026-10-23T09:03:10.883514+00:00",
+      "native_processes": 6,
+      "native_outputs": 60,
+      "ncu_processes": 8,
+      "ncu_outputs": 32,
+      "next_trace_captures": 1
+    },
+    {
+      "name": "CPU formatter A released",
+      "monotonic_ns": 7705608787935726,
+      "utc": "2026-10-23T09:03:10.883937+00:00",
+      "pid": 497822
+    },
+    {
+      "name": "CPU phase A finished",
+      "monotonic_ns": 7705610154102512,
+      "utc": "2026-10-23T09:03:12.250107+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "CPU phase B started",
+      "monotonic_ns": 7705610154611193,
+      "utc": "2026-10-23T09:03:12.250613+00:00",
+      "argv": [
+        "/home/inje/anaconda3/bin/python3",
+        "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+        "--phase",
+        "cpu",
+        "--results-dir",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/capture-B"
+      ]
+    },
+    {
+      "name": "CPU phase B finished",
+      "monotonic_ns": 7705611673794381,
+      "utc": "2026-10-23T09:03:13.769800+00:00",
+      "exit_code": 0
+    }
+  ]
+}

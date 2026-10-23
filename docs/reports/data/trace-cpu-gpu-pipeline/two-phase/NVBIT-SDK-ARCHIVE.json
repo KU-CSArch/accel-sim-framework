@@ -1,0 +1,62 @@
+{
+  "status": "checksum-verified",
+  "retained_path": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/inputs/nvbit-sdk",
+  "source": "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/nvbit_release",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "12c7a569b2621c5243bad1163c29422f186ecef254fbdce3131f4e48bfe14ad8",
+      "bytes": 700
+    },
+    {
+      "path": "core/cuda.h",
+      "sha256": "673873a292718591d75ea3c2e65330b1f8f8278eac3c96b32245418fb0817851",
+      "bytes": 1203940
+    },
+    {
+      "path": "core/libnvbit.a",
+      "sha256": "db221829106673bcd69d1e05766136f80e2df4497fb8415d8c2f298b96c302f7",
+      "bytes": 5400436
+    },
+    {
+      "path": "core/nvbit_tool.h",
+      "sha256": "c027a4442277d3a0721cae8af9356ac41ebc719905a55569bb83834fcdbb4bf5",
+      "bytes": 3118
+    },
+    {
+      "path": "core/instr_types.h",
+      "sha256": "40fe84ac6eff812f65a88fd0b4c108bf3560aeaffe47c3ba8163d1edfc9e0041",
+      "bytes": 7703
+    },
+    {
+      "path": "core/tools_cuda_api_meta.h",
+      "sha256": "23bd0411f4b5c661c0e619d12ec2b08667b53b10d37ce195f96a1e1801208898",
+      "bytes": 78719
+    },
+    {
+      "path": "core/generated_cuda_meta.h",
+      "sha256": "9f740b12c355620baa8e9d14b4ce964da12131e4b1b9db5b2bc0d919ca13f50e",
+      "bytes": 111042
+    },
+    {
+      "path": "core/nvbit.h",
+      "sha256": "fd37da68e28fb3ed553466af9c5d2ac23abdc89507f0a31d6377d5e3469714c2",
+      "bytes": 29897
+    },
+    {
+      "path": "core/nvbit_reg_rw.h",
+      "sha256": "79854c7a13af635005694edabf99b8da28f90d54b550400e7115667f727e7fe5",
+      "bytes": 3534
+    },
+    {
+      "path": "core/utils/utils.h",
+      "sha256": "a528f5d47fe410eb44e2b6b60c0d74dc0c2919a62ec2d7d834a42ae7e42099ce",
+      "bytes": 5841
+    },
+    {
+      "path": "core/utils/channel.hpp",
+      "sha256": "282cb01efb9c70d659324e6795861fe0dc7646149a95160138e7a2a849ab5c68",
+      "bytes": 8421
+    }
+  ]
+}

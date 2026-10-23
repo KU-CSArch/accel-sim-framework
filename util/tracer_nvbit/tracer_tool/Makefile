@@ -29,6 +29,7 @@ NVCC_PATH=-L $(subst bin/nvcc,lib64,$(shell which nvcc | tr -s /))
 SOURCES=$(wildcard *.cu)
 
 OBJECTS=$(SOURCES:.cu=.o)
+FORMAT_OBJECTS=formatting/trace_formatter.o formatting/trace_capture.o
 ARCH?=all
 
 ARCH_VER_REQ=11.7 # NVCC < 11.7 doesn't support -arch=all flag
@@ -46,14 +47,19 @@ NVBIT_TOOL=$(current_dir).so
 
 all: $(NVBIT_TOOL)
 
-$(NVBIT_TOOL): $(OBJECTS) $(NVBIT_PATH)/libnvbit.a
-	$(NVCC) -arch=$(ARCH) -O3 $(OBJECTS) $(LIBS) $(NVCC_PATH) -lcuda -lcudart_static -shared -o $@
+$(NVBIT_TOOL): $(OBJECTS) formatting $(NVBIT_PATH)/libnvbit.a
+	$(NVCC) -arch=$(ARCH) -O3 $(OBJECTS) $(FORMAT_OBJECTS) $(LIBS) $(NVCC_PATH) -lcuda -lcudart_static -shared -o $@
 
-%.o: %.cu common.h
+%.o: %.cu common.h trace_record.h
 	$(NVCC) -dc -c -std=c++17 $(INCLUDES) -Xptxas -cloning=no -Xcompiler -Wall -arch=$(ARCH) -O3 -Xcompiler -fPIC $< -o $@
 
-inject_funcs.o: inject_funcs.cu common.h
+inject_funcs.o: inject_funcs.cu common.h trace_record.h
 	$(NVCC) $(INCLUDES) $(MAXRREGCOUNT_FLAG) -Xptxas -astoolspatch --keep-device-functions -arch=$(ARCH) -Xcompiler -Wall -Xcompiler -fPIC -c $< -o $@
 
 clean:
 	rm -f *.so *.o
+	$(MAKE) -C formatting clean
+
+.PHONY: formatting
+formatting:
+	$(MAKE) -C formatting

@@ -1,0 +1,329 @@
+{
+  "status": "passed",
+  "scope": "Complete saved native record stream formatted by independent original writer; all output bytes compared. Grouped tracez checked for all CTAs and warps of every repeated vector case. No ISA/timing accuracy claim.",
+  "kernels": [
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x5c29f9e98210.trace.records",
+      "record_sha256": "d771bffa0f901cb54fc029188cabbbe166ba0134ebee10fae505382843cc90fc",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x5c29f9e98210.trace.xz",
+      "text_sha256": "931e43a59d8e8d749718e43f4f320595f32894f4c0de96f15c3ce406762da92f",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x5c29f9e98210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "c3dc2e283504294dc0fa2bf91496ec3b1ece64b9e9e84516511e5019be586bfb",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x5c29f9e98210.trace.records",
+      "record_sha256": "a744f556cee846744396c147d6b614bd90956eb2ddfd08964e768bd932760ba9",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x5c29f9e98210.trace.xz",
+      "text_sha256": "8bf1be05ed962707aa01cb551964d96d9c052fae4431053a0c72caa23c33e523",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x5c29f9e98210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "c9679e34920ed5690b9af3e154f53d8551b906bbd0e12ce1fb9c9ae42b30eb57",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x5c29f9e98210.trace.records",
+      "record_sha256": "2535cfbdf098d30c414c0431ebf4ce350a588d10659a085e890a9e3b3a8afcfc",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x5c29f9e98210.trace.xz",
+      "text_sha256": "a4bbb3d7d28f5abe9748b49312b6827f2fbc813fba6925f2c5bad3c4b8ea7c6a",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x5c29f9e98210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "9d6c071daae43540f9b0d6df6b24bc38ecb82f1e2ccd15c110a6eb3edf52c02e",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x5c29f9e98210.trace.records",
+      "record_sha256": "140b324459194cb67860d2b888eaa3fe4f044210e19cc69bdd813f2ebdad27b3",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x5c29f9e98210.trace.xz",
+      "text_sha256": "a2fa15c2c0cd045b424a518da3b7b111f1c7c32ae204a87cc2bb859cb481c871",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-00-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x5c29f9e98210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "40847f276835566af04c9bec2e70b8a6a50166e381f8c54239b7091ae869e0b7",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x58af02b5d210.trace.records",
+      "record_sha256": "e0ec699f90a64707279df88e42fd0d485409f38d0fce2b8f176951de8fa666dd",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x58af02b5d210.trace.xz",
+      "text_sha256": "1ef5bae89dbe25456462bd0eb10c384ad8ed07ab3c2a7eb07c15ce64c64cdc52",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x58af02b5d210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "3d9eab6cbf48523334fd478ecbccbd50c28dfe83335c60f49c7749e486231824",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x58af02b5d210.trace.records",
+      "record_sha256": "545e820591186df7514648a69b95f376b7caafe83ad736c5b200efbd92d658f2",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x58af02b5d210.trace.xz",
+      "text_sha256": "16ed4ace3cc5861fc54cfec45d3f1b13d6cf19068f88d9f85b441d414e892706",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x58af02b5d210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "5e323bd6d6430f1143b9cd921fe88fa63d0380f483d004ed570416991d811995",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x58af02b5d210.trace.records",
+      "record_sha256": "b98abe3d256ffa0214f7f61e24440b13c14af50ec287693c982ee3a2c91fe0a9",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x58af02b5d210.trace.xz",
+      "text_sha256": "d8ee5a3ab94b8980679dc608e163bc4124195381cfa08ed9b5eddc9d622df554",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x58af02b5d210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "8cc953b510f8baa72c0661522e7affdb2d00ae1404cd7f800de71bb03d949544",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x58af02b5d210.trace.records",
+      "record_sha256": "8a02fd623f2e41379ef4439d64c1a0429a938bf444440964ab05cd6af0d334fd",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x58af02b5d210.trace.xz",
+      "text_sha256": "5b14ccd23ac5c0c58c7d0aeb26480f9ea744868ead90e39d679a12324d65b003",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-01-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x58af02b5d210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "f4470c37aa3090640096fbbd4fe266780ae145dd393052a9bc7d7935af0e229c",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x627556cd7210.trace.records",
+      "record_sha256": "b7d4db7931d1949002d838b46a72ac1f610db89124ad325f55d4d03731d48bfc",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x627556cd7210.trace.xz",
+      "text_sha256": "086f1666890068a3cb9106d7298e325564a60fbf39d04b42067a8cf67c36c375",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x627556cd7210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "401a7d21461d1454bd4edd0c973856e595ee35ccf3ff742fab8b5e3a0799dce5",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x627556cd7210.trace.records",
+      "record_sha256": "f2314eebdfeaa884bd3a2329dee7ce1b07809dbaf696796dbdad63fe391e5f89",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x627556cd7210.trace.xz",
+      "text_sha256": "3fad5d4ef530ae2fccb444c9803ce6334da3781bd05a7441c6f4ab6faff4a22b",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x627556cd7210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "53d878a28af0e9af30c0d8595b7e632c7447e91f2d899a928a1f0c9ca6bc1d33",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x627556cd7210.trace.records",
+      "record_sha256": "6f95d681cb20d6da357e3f6b58939c59365b453ddf4e16a513e896ab4015bfb4",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x627556cd7210.trace.xz",
+      "text_sha256": "a683c4613a84c9eb27d79f4cfbd15a4f178dbb32f2e130292371eef93bef4ba6",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x627556cd7210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "a22ce1dd71d92bbd4940165ee45f49a3cba13fedb2fc38c2317c638197fa0a89",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x627556cd7210.trace.records",
+      "record_sha256": "508141547992d8444b89c73c8bcdf38265091ad46772a81833f5e1187d2be00a",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x627556cd7210.trace.xz",
+      "text_sha256": "f556831ef2d02e438622f01f8fc6c4f7fc9ef61137c14927f7523269213cfd35",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-02-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x627556cd7210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "5a5347b1655121dff9b1e979019b33e95673bdb9c30a78f1b1f70384084915b9",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x58ccd9633210.trace.records",
+      "record_sha256": "840fb359b229772a33bb74c730ba525a62b812db3180c0b633c9302c365d8856",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x58ccd9633210.trace.xz",
+      "text_sha256": "848455d3a3819b8eb2fc8bae08cc1b0426b1dacafe32105fb9bd92fb1ca36fe6",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x58ccd9633210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "e781a271304c1eb3f98955b33ad21e21bb0ac44d355a315d068ffcc5c6bfc132",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x58ccd9633210.trace.records",
+      "record_sha256": "4c75b57edf5078744370d0f0eae6bcd98fac8c4ec38f5877bda609f9af6a5298",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x58ccd9633210.trace.xz",
+      "text_sha256": "25c2848a5fd77c40b3daf5198f5a423b9600a9470b9cda67af5bf26a07ad65ff",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x58ccd9633210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "e1663c833a19c7dd43f5292ef40ae96ed18f67ff6ae31bafb266dead49abbbc1",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x58ccd9633210.trace.records",
+      "record_sha256": "ae7e01185b573f257e55c3365b2999d25f2c89da28807779f8294e0de5b3ef10",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x58ccd9633210.trace.xz",
+      "text_sha256": "ce277506f312919be1e5dd9077e9309066fb07164f0b65754c2738d04cd235cd",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x58ccd9633210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "ff6960e7a8bb10991d1575d2b494d4ae951a4eea0d9955601645c0c90ee536c3",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x58ccd9633210.trace.records",
+      "record_sha256": "50eae82d9024258dedaeeccb7d9df68324b32e090766a8eae5448f2dc585fe7a",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x58ccd9633210.trace.xz",
+      "text_sha256": "fde18ef25b2f6cddc7d1867e2e6b781ae9ccb1a832faf4bf62e68af78b8452a8",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-03-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x58ccd9633210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "1b13ee4791dfc19ac2b2d5915b6ddbd2680bdf7b97967ae2188151d24dbb4352",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x63b908390210.trace.records",
+      "record_sha256": "5d54677b517296a9ab1f3edad8b657157afc4c486e6c83be03416b3a652353bf",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x63b908390210.trace.xz",
+      "text_sha256": "c2d3bd894d75b0891ea3f8d7eb55aff456967f33f365eaa12285bfa87fd01531",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-1-ctx_0x63b908390210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "f4d5065a7d6025fa1557dae315e1bf44c4ff0c731ed2fa9e419c0fdb8e1ad629",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x63b908390210.trace.records",
+      "record_sha256": "9db294dd73bb05f2bcc999ac634576dea312ac9a6463f8c14380baac3ada91a1",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x63b908390210.trace.xz",
+      "text_sha256": "a23d22fb695d07071eec5d6aa7a0ad00bbced6095454f5df536315de51a93576",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-2-ctx_0x63b908390210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "0d7d43fc4f3134d11f4740473516eb277ca8772e2866dd9f27c7202ad283a602",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x63b908390210.trace.records",
+      "record_sha256": "613fe9a35eecdd84685d060faa674676f5b8453ba404fc752157123d79f23662",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x63b908390210.trace.xz",
+      "text_sha256": "2852ebaa009fb12d0224b24fe523e9ebdbbe51a34ee52b7934699589730cc3d2",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-3-ctx_0x63b908390210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "70dcabf1b24afe47ccc4099794275a48ce91a1da59bd464f7ac411e8040097bd",
+      "grouped_records": 524288
+    },
+    {
+      "records": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x63b908390210.trace.records",
+      "record_sha256": "367c1b3b55c2269708a34de227820220cc5d7a8e230184d9db162dab1f57b80e",
+      "formatted": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x63b908390210.trace.xz",
+      "text_sha256": "c48805dbde39dc45885ff7cecdf0a2b97878d419a1464c38c9f6603cddf4f826",
+      "text_bytes": 92886738,
+      "instruction_records": 524288,
+      "original_writer_exit": 0,
+      "original_writer_argv": [
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/reference-writer",
+        "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/vector-timings/repeat-04-two-phase/vector-add/one-million-elements/traces/kernel-4-ctx_0x63b908390210.trace.records",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/vector-record-verification/original-writer.txt"
+      ],
+      "grouped_sha256": "4247bea4b217b19f931a99bb85a02f8688ed19e1e7b48ea2f2201e4602f5f319",
+      "grouped_records": 524288
+    }
+  ],
+  "kernel_count": 20,
+  "instruction_records": 10485760,
+  "grouped_kernel_count": 20
+}
