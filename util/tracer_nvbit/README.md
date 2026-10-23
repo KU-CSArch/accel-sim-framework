@@ -1,183 +1,64 @@
-# 📘 Using the Tracer Tool for Accel-Sim
+# Accel-Sim GPU trace capture and CPU processing
 
-This document explains how to use the `tracer_tool` for generating instruction traces for GPU applications. The tool supports full benchmark suites, individual applications, specific kernel tracing, source line mapping, and more.
+The launcher has two explicit phases. The GPU phase saves dynamic instruction records and returns. The CPU phase reads that saved collection and produces replay traces. Start the next native run, NCU collection or GPU capture after the GPU command returns; CPU processing is a separate command.
 
----
-
-## 🛠️ Setup and Installation
-
-Before using the tracer, make sure to install and build the required tools:
+Build the NVBit tracer and the CPU tools in this checkout before running. `tracer_tool/Makefile` also builds `formatting/format-trace-capture`. The postprocessor requires zstd development files. The standalone formatter can be built without CUDA:
 
 ```bash
-# Install NVBit
-./install_nvbit.sh
-
-# Compile tracer tools
-./make
+make -C tracer_tool/formatting
 ```
 
----
+## GPU phase
 
-## ⚙️ Option 1: Trace a Full Benchmark Suite
-
-Use this if you're tracing an entire benchmark suite (e.g., Rodinia):
+Select a fresh results directory and a fresh trace namespace. Benchmark suites and application inputs are defined under [job_launching/apps](../job_launching/apps).
 
 ```bash
-./run_hw_trace.py -B rodinia-3.1 -D 0
+python3 run_hw_trace.py --phase gpu \
+  --results-dir "$RUN_ROOT" --traces-dir "$TRACE_ROOT" \
+  -B rodinia_2.0-ft -D 0
 ```
 
-- `-B`: Benchmark suite name  (app list can be found or defined in [this file](../job_launching/apps/define-all-apps.yml))
-- `-D`: Hardware device ID (e.g., GPU 0)
+The generated `run_gpu.sh` enables `TRACE_DEFER_FORMATTING=1`. NVBit instrumentation and its channel remain live. The receiver saves full record blocks; it does not format instruction text, compress addresses, run xz, group warps or wait for CPU workers. Kernel completion still drains and closes its record file before the case is published as collected in `gpu-traces.json`.
 
-📁 Traces will be stored in:  
-`../../hw_run/traces/device-0/`
+Trace bytes are written under `$TRACE_ROOT/<application>/<input>/traces/`. Logs, numerical application outputs, scripts and receipts are under `$RUN_ROOT/<application>/<input>/`. Omitting `--traces-dir` puts trace bytes under `$RUN_ROOT/collected-traces/`. Existing per-case trace directories and an existing GPU manifest are preserved; use new namespaces for a new collection.
 
-**This script handles trace generation, post-processing, and cleanup automatically.**  
-See the [Trace File Structure](#-trace-file-structure) section for details on the output.
+Required channel draining and record-file I/O remain on the live path. A slow disk can still backpressure capture. Context-bound NVBit TMA address acquisition also remains live; its formatting is deferred. The RTX A6000 validation does not exercise TMA.
 
----
-
-## ⚙️ Option 2: Trace an Individual Application
-
-Use this approach if you want to trace a specific application binary (e.g., `vectoradd`):
+## CPU phase
 
 ```bash
-export CUDA_VISIBLE_DEVICES=0
-LD_PRELOAD=./tracer_tool/tracer_tool.so ./nvbit_release/test-apps/vectoradd/vectoradd
+python3 run_hw_trace.py --phase cpu --results-dir "$RUN_ROOT" \
+  --cpu-workers 2 --postprocess-threads 2
 ```
 
-📁 Traces will appear in the `traces/` folder.  
-See the [Trace File Structure](#-trace-file-structure) section for contents.  
-🔄 **Note:** Unlike Option 1, **you must manually perform post-processing**:
+This command reads the cases marked collected in a snapshot of `gpu-traces.json`. It does not discover applications or invoke `nvcc`. Each CPU worker runs `run_cpu.sh`: format saved records, then invoke the existing postprocessor. CUDA visibility, injection and preload are cleared for these processes. `cpu-traces.json` records their independent outcomes. CPU failure leaves the GPU manifest and saved records intact. There is no CPU queue or final CPU join in the GPU command.
+
+The default replay format is `.tracez`; `--postprocess-format text` selects `.traceg`. The CPU phase also accepts previously collected raw `.trace`/`.trace.xz` inputs recorded in the same manifest layout. Raw and intermediate files are retained. CPU workers and each postprocessor's `-j` threads apply only to this phase. Run one CPU phase per collection at a time.
+
+Separate collections can progress independently:
 
 ```bash
-./tracer_tool/traces-processing/post-traces-processing ./traces/kernelslist
+python3 run_hw_trace.py --phase cpu --results-dir "$PREVIOUS_RUN" &
+python3 run_hw_trace.py --phase gpu --results-dir "$NEXT_RUN" \
+  --traces-dir "$NEXT_TRACES" -B rodinia_2.0-ft -D 0
 ```
 
-This will generate `.traceg` and `kernelslist.g` files that are ready for Accel-Sim.
+The second command has no dependency on completion of the first. This does not promise exclusive CPU or storage bandwidth.
 
----
+## Files and retained controls
 
-## 📦 Trace File Structure
+| File | Produced by | Purpose |
+|---|---|---|
+| `kernel-*.trace.records` | GPU phase | Native record blocks, original kernel header, formatting options, opcode names and required metadata |
+| `kernelslist_ctx_*`, `stats_ctx_*` | GPU phase | Existing kernel/memcpy inventory and instruction counters |
+| `kernel-*.trace` or `.trace.xz` | CPU formatter | Original textual instruction format |
+| `kernel-*.tracez` or `.traceg` | CPU postprocessor | Records grouped by CTA and warp for replay |
+| `kernelslist.g` | CPU postprocessor | Replay inventory |
 
-Each trace folder contains:
+Saved records preserve the native `inst_trace_t` layout. The file records its byte order, size, alignment and union offset; the reader requires that ABI. With the validated SDK/build, a record occupies 1,296 bytes. These intermediate files can be much larger than text or final compressed replay traces. Keep collection/replay tools with the source, SDK and build identities used to create the files.
 
-- `kernel-*.trace`: Raw trace files (one per kernel)
-- `kernelslist`: List of traced kernels and CUDA memcpy operations
-- `stats.csv`: Summary statistics (instruction counts, kernel IDs, etc.)
+`TRACE_FILE_COMPRESS` chooses the CPU formatter's raw-text compression in deferred mode; it does not compress the GPU record file. Direct tracer use retains the original inline writer by default (`TRACE_DEFER_FORMATTING=0`). Set `TRACE_DEFER_FORMATTING=1` explicitly for direct record capture, then run `tracer_tool/formatting/format-trace-capture <records-file-or-directory>` separately.
 
-After post-processing:
-- `.traceg`: Grouped trace files by thread block
-- `kernelslist.g`: Final trace list for use with Accel-Sim
+The launcher retains kernel selection (`-l`, `-t`, input `kernel-name-filter`, or `DYNAMIC_KERNEL_RANGE`), optional source lines (`TRACE_LINEINFO` with application `-lineinfo`), and explicit spinlock options. Spinlock detection, when selected, still uses the existing detection prepass; it is not covered by the hardware detachment measurements. No filtering, device instrumentation or cycle-model change is introduced by phase separation.
 
----
-
-## 🎯 Selective Tracing (Kernel-Based Filtering)
-
-You can now trace specific kernels using the `DYNAMIC_KERNEL_RANGE` environment variable.
-
-### Usage
-
-Set `DYNAMIC_KERNEL_RANGE` to specify which kernel IDs (and optionally names) to trace. Supported formats:
-
-- **Single ID:**  
-  ```bash
-  export DYNAMIC_KERNEL_RANGE="3"
-  ```
-  Traces only kernel 3.
-
-- **Range:**  
-  ```bash
-  export DYNAMIC_KERNEL_RANGE="5-8"
-  ```
-  Traces kernels 5 through 8 (inclusive).
-
-- **Open-ended Range:**  
-  ```bash
-  export DYNAMIC_KERNEL_RANGE="10-"
-  ```
-  Traces from kernel 10 onward.
-
-- **Multiple Ranges (space-separated):**  
-  ```bash
-  export DYNAMIC_KERNEL_RANGE="2 5-8 10-"
-  ```
-
-- **With Name Filters (regex):**  
-  ```bash
-  export DYNAMIC_KERNEL_RANGE="5-8@kernel_a.*,kernel_b.*"
-  ```
-  Traces kernels 5–8 *only* if their names match `kernel_a.*` or `kernel_b.*`.
-
-### To Disable Tracing But Still List Kernels
-
-To list kernel metadata in `stats.csv` without generating traces, we set the DYNAMIC_KERNEL_RANGE to very large number  :
-```bash
-export DYNAMIC_KERNEL_RANGE="1000000"
-```
-
-This is useful for discovering kernel IDs and names without producing large trace files.
-
-
----
-
-## ⏱️ Alternative: Trace Specific Code Regions with CUDA Profiling
-
-Wrap regions to trace using CUDA APIs:
-```cpp
-cudaProfilerStart();
-// region to trace
-cudaProfilerStop();
-```
-
-Then disable default tracing:
-```bash
-export ACTIVE_FROM_START=0
-```
-
----
-
-## 🔍 Trace Source Line Mapping
-
-Enable source line information in your traces:
-
-1. Set environment variable:
-```bash
-export TRACE_LINEINFO=1
-```
-
-2. Rebuild benchmark applications:
-```bash
-source ./gpu-app-collection/src/setup_environment
-make -j -C ./gpu-app-collection/src rodinia_2.0-ft
-```
-
-Traces will now include line number info from the original CUDA source (requires `-lineinfo` flag in NVCC).
-
----
-
-## 📄 Trace Format Explanation
-
-Each instruction has at least 10 required columns:
-
-```
-[line_num] PC mask dest_num [reg_dests] opcode src_num [reg_srcs] mem_width [addresscompress?] [mem_addresses]
-```
-
-Details:
-- Fields in `[]` are optional and appear only if applicable.
-- `dest_num = 0` → no destination register field.
-- `mem_width = 0` → no memory address info present.
-
-🧾 **Example:**
-```
-31 0 0 3 0000 ffffffff 1 R1 IMAD.MOV.U32 2 R255 R255 0
-```
-
-This line represents:
-- Threadblock: (31, 0, 0)  
-- PC: `0000`, Mask: `ffffffff`  
-- One destination register: `R1`  
-- Opcode: `IMAD.MOV.U32`  
-- Two source registers: `R255`, `R255`  
-- Not a memory instruction (`mem_width = 0`)
+See the [source plan](../../docs/plans/trace-cpu-gpu-pipeline/PLAN.md), [measured validation](../../docs/reports/trace-cpu-gpu-pipeline.md) and [reproduction commands](../../docs/experiments/trace-cpu-gpu-pipeline/README.md).

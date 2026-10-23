@@ -1,236 +1,190 @@
 #!/usr/bin/env python3
-
-from optparse import OptionParser
+"""Collect GPU records or process an existing collection on CPU-only workers."""
+import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+import hashlib
+import json
 import os
-import subprocess
-import os
-
-this_directory = os.path.dirname(os.path.realpath(__file__)) + "/"
+from pathlib import Path
+import shlex
 import sys
 
-sys.path.insert(0, os.path.join(this_directory, "..", "job_launching"))
-import common
-import re
-import shutil
-import glob
-import datetime
-import yaml
-import common
-import re
-import datetime
+from trace_pipeline import run_phase
 
-# We will look for the benchmarks
-parser = OptionParser()
-parser.add_option(
-    "-B",
-    "--benchmark_list",
-    dest="benchmark_list",
-    help="a comma seperated list of benchmark suites to run. See apps/define-*.yml for "
-    + "the benchmark suite names.",
-    default="rodinia_2.0-ft",
-)
-parser.add_option(
-    "-D", "--device_num", dest="device_num", help="CUDA device number", default="0"
-)
-parser.add_option(
-    "-n",
-    "--norun",
-    dest="norun",
-    action="store_true",
-    help="Do not actually run the apps, just create the dir structure and launch files",
-)
-parser.add_option(
-    "-l",
-    "--limit_kernel_number",
-    dest="kernel_number",
-    default=-99,
-    help="Sets a hard limit to the number of traced kernels",
-)
-parser.add_option(
-    "-t",
-    "--terminate_upon_limit",
-    dest="terminate_upon_limit",
-    action="store_true",
-    help="Once the kernel limit is reached, terminate the tracing process",
-)
-parser.add_option(
-    "--spinlock_handling",
-    dest="spinlock_handling",
-    choices=["none", "fast_forward", "mark_region"],
-    default="mark_region",
-    help="How to handle spinlock instructions: none, fast_forward, or mark_region (default: mark_region)",
-)
-parser.add_option(
-    "--spinlock_fast_forward_iterations",
-    dest="spinlock_fast_forward_iterations",
-    type=int,
-    default=1,
-    help="Number of iterations to keep for spinlock fast forwarding. Only used if spinlock_handling is fast_forward",
-)
+HERE = Path(__file__).resolve().parent
 
-(options, args) = parser.parse_args()
 
-common.load_defined_yamls()
+def save(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_text(json.dumps(value, indent=2) + "\n")
+    temporary.replace(path)
 
-benchmarks = []
-benchmarks = common.gen_apps_from_suite_list(options.benchmark_list.split(","))
 
-cuda_version = common.get_cuda_version(this_directory)
-now_time = datetime.datetime.now()
-day_string = now_time.strftime("%y.%m.%d-%A")
-time_string = now_time.strftime("%H:%M:%S")
-logfile = day_string + "--" + time_string + ".csv"
+def digest(path):
+    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
-nvbit_tracer_path = os.path.join(this_directory, "tracer_tool")
-nvbit_spinlock_path = os.path.join(this_directory, "others", "spinlock_tool")
 
-for bench in benchmarks:
-    edir, ddir, exe, argslist = bench
-    for argpair in argslist:
-        args = argpair["args"]
-        kernel_name_filter = argpair.get("kernel-name-filter", "") if isinstance(argpair, dict) else ""
-        run_name = os.path.join(exe, common.get_argfoldername(argpair))
-        this_run_dir = os.path.abspath(
-            os.path.expandvars(
-                os.path.join(
-                    this_directory,
-                    "..",
-                    "..",
-                    "hw_run",
-                    "traces",
-                    "device-" + options.device_num,
-                    cuda_version,
-                    run_name,
-                )
+def gpu_phase(args):
+    # CPU phase never imports application discovery or asks for a CUDA version.
+    sys.path.insert(0, str(HERE.parent / "job_launching"))
+    import common
+    common.load_defined_yamls()
+    benchmarks = common.gen_apps_from_suite_list(args.benchmark_list.split(","))
+    cuda_version = common.get_cuda_version(str(HERE) + "/")
+    root = args.results_dir.resolve()
+    traces = (args.traces_dir or root / "collected-traces").resolve()
+    manifest = root / "gpu-traces.json"
+    if manifest.exists():
+        raise RuntimeError("Select a fresh GPU results directory; a collection already exists")
+    root.mkdir(parents=True, exist_ok=True)
+    traces.mkdir(parents=True, exist_ok=True)
+    tracer = HERE / "tracer_tool/tracer_tool.so"
+    result = {
+        "phase": "gpu", "started_utc": datetime.now(timezone.utc).isoformat(),
+        "device": args.device_num, "cuda_version": cuda_version,
+        "tracer_sha256": digest(tracer), "traces_dir": str(traces),
+        "cases": [], "completed": False,
+    }
+    save(manifest, result)
+    for executable_dir, data_dir, executable, inputs in benchmarks:
+        for input_row in inputs:
+            name = str(Path(executable) / common.get_argfoldername(input_row))
+            directory = root / name
+            trace_root = traces / name
+            trace_directory = trace_root / "traces"
+            directory.mkdir(parents=True, exist_ok=False)
+            trace_directory.mkdir(parents=True, exist_ok=False)
+            data_dir = common.dir_option_test(data_dir, "", str(HERE))
+            (directory / "data_dirs").symlink_to(data_dir, target_is_directory=True)
+            try:
+                selected = common.dir_option_test(str(Path(data_dir) / executable / "data"), "", str(HERE))
+                (directory / "data").symlink_to(selected, target_is_directory=True)
+            except common.PathMissing:
+                pass
+            executable_path = common.file_option_test(str(Path(executable_dir) / executable), "", str(HERE))
+            kernel_filter = input_row.get("kernel-name-filter", "")
+            selected_range = (
+                "@" + kernel_filter if kernel_filter else
+                "0-" + str(args.kernel_number) if args.kernel_number > 0 else
+                os.environ.get("DYNAMIC_KERNEL_RANGE", "")
             )
-        )
-        this_trace_folder = os.path.join(this_run_dir, "traces")
-        if not os.path.exists(this_run_dir):
-            os.makedirs(this_run_dir)
-        if not os.path.exists(this_trace_folder):
-            os.makedirs(this_trace_folder)
-
-        # link the data directory
-        try:
-            benchmark_data_dir = common.dir_option_test(
-                os.path.join(ddir, exe, "data"), "", this_directory
+            preamble = (
+                "set -e\nexport CUDA_VERSION=" + shlex.quote(cuda_version)
+                + "\nexport CUDA_VISIBLE_DEVICES=" + shlex.quote(args.device_num)
+                + "\nexport TRACES_FOLDER=" + shlex.quote(str(trace_root))
+                + "\nexport DYNAMIC_KERNEL_RANGE=" + shlex.quote(selected_range)
+                + "\nexport TERMINATE_UPON_LIMIT=" + ("1" if args.terminate_upon_limit else "0")
+                + "\n"
             )
-            if os.path.lexists(os.path.join(this_run_dir, "data")):
-                os.remove(os.path.join(this_run_dir, "data"))
-            os.symlink(benchmark_data_dir, os.path.join(this_run_dir, "data"))
-        except common.PathMissing:
-            pass
-
-        all_data_link = os.path.join(this_run_dir, "data_dirs")
-        if os.path.lexists(all_data_link):
-            os.remove(all_data_link)
-        top_data_dir_path = common.dir_option_test(ddir, "", this_directory)
-        os.symlink(top_data_dir_path, all_data_link)
-
-        if args == None:
-            args = ""
-        exec_path = common.file_option_test(os.path.join(edir, exe), "", this_directory)
-        sh_contents = "set -e\n"
-
-        if options.terminate_upon_limit:
-            sh_contents += "export TERMINATE_UPON_LIMIT=1; "
-
-        if "mlperf" in exec_path:
-            # For mlperf by default we turn this flag on
-            sh_contents += "export TERMINATE_UPON_LIMIT=0; "
-            exec_path = ". " + exec_path
-
-            if options.kernel_number > 0:
-                sh_contents +=  ('\nexport DYNAMIC_KERNEL_RANGE="0-'+str(options.kernel_number)+'"\n')
-            else:
-                sh_contents +=  ('\nexport DYNAMIC_KERNEL_RANGE="0-'+str(50)+'"\n')
-        else:
-            if kernel_name_filter:
-                sh_contents +=  (f'\nexport DYNAMIC_KERNEL_RANGE="@{kernel_name_filter}"\n')
-            elif options.kernel_number > 0:
-                sh_contents +=  ('\nexport DYNAMIC_KERNEL_RANGE="0-'+str(options.kernel_number)+'"\n')
-            else:
-                sh_contents +=  (f'\nexport DYNAMIC_KERNEL_RANGE="{os.environ.get("DYNAMIC_KERNEL_RANGE", "")}"\n')
-
-        # first we generate the traces (.trace and kernelslist files)
-        # then, we do post-processing for the traces and generate (.traceg and kernelslist.g files)
-        # then, we delete the intermediate files ((.trace and kernelslist files files)
-        sh_contents += (
-            '\nexport CUDA_VERSION="'
-            + cuda_version
-            + '"; export CUDA_VISIBLE_DEVICES="'
-            + options.device_num
-            + '" ; '
-        )
-        
-        # Map spinlock handling mode to integer
-        spinlock_mode_map = {"none": 0, "fast_forward": 1, "mark_region": 2}
-
-        tracer_contents = (
-            sh_contents
-            + "\nrm -f traces/*"
-            + "\nexport TRACES_FOLDER="
-            + this_run_dir
-            + f"; SPINLOCK_HANDLING_MODE={spinlock_mode_map[options.spinlock_handling]} SPINLOCK_ITER_TO_KEEP={options.spinlock_fast_forward_iterations} CUDA_INJECTION64_PATH="
-            + os.path.join(nvbit_tracer_path, "tracer_tool.so")
-            + " "
-            + exec_path
-            + " "
-            + str(args)
-            + " ; "
-            + os.path.join(
-                nvbit_tracer_path, "traces-processing", "post-traces-processing"
+            mode = {"none": 0, "fast_forward": 1, "mark_region": 2}[args.spinlock_handling]
+            command = shlex.quote(executable_path) + " " + str(input_row.get("args") or "")
+            gpu_script = (
+                preamble + "export TRACE_DEFER_FORMATTING=1\n"
+                + "SPINLOCK_HANDLING_MODE=" + str(mode)
+                + " SPINLOCK_ITER_TO_KEEP=" + str(args.spinlock_fast_forward_iterations)
+                + " CUDA_INJECTION64_PATH=" + shlex.quote(str(tracer))
+                + " " + command + "\n"
             )
-            + " "
-            + this_trace_folder
-            + " ; rm -f "
-            + this_trace_folder
-            + "/*.trace ; rm -f "
-            + this_trace_folder
-            + "/*.trace.xz ; rm -f "
-            + this_trace_folder
-            + "/kernelslist "
+            (directory / "run_gpu.sh").write_text(gpu_script)
+            if mode:
+                detector = HERE / "others/spinlock_tool/spinlock_tool.so"
+                spin_script = preamble
+                for phase in [0, 1]:
+                    spin_script += (
+                        "SPINLOCK_PHASE=" + str(phase) + " CUDA_INJECTION64_PATH="
+                        + shlex.quote(str(detector)) + " " + command + "\n"
+                    )
+                (directory / "run_spinlock_detection.sh").write_text(spin_script)
+                run_phase(directory, "run_spinlock_detection.sh", "gpu-spinlock")
+            case = {"name": name, "directory": str(directory), "traces": str(trace_directory)}
+            try:
+                receipt = run_phase(directory, "run_gpu.sh", "gpu")
+                # Kernel inventory names describe the final text files. The GPU
+                # phase must have collected the corresponding raw record files.
+                for inventory in trace_directory.glob("kernelslist*"):
+                    if inventory.suffix == ".g":
+                        continue
+                    for line in inventory.read_text().splitlines():
+                        if line.startswith("kernel-"):
+                            base = line[:-3] if line.endswith(".xz") else line
+                            if not (trace_directory / (base + ".records")).is_file():
+                                raise RuntimeError("GPU record file is missing: " + base)
+                case.update(status="collected", receipt=receipt)
+            except Exception as error:
+                case.update(status="failed", error=str(error))
+            result["cases"].append(case)
+            save(manifest, result)
+            print("GPU", name, case["status"], flush=True)
+    result["completed"] = True
+    result["ended_utc"] = datetime.now(timezone.utc).isoformat()
+    save(manifest, result)
+    return int(any(case["status"] != "collected" for case in result["cases"]))
+
+
+def cpu_phase(args):
+    root = args.results_dir.resolve()
+    collected = json.loads((root / "gpu-traces.json").read_text())
+    cases = [case for case in collected["cases"] if case["status"] == "collected"]
+    result = {"phase": "cpu", "started_utc": datetime.now(timezone.utc).isoformat(), "cases": []}
+    formatter = HERE / "tracer_tool/formatting/format-trace-capture"
+    postprocessor = HERE / "tracer_tool/traces-processing/post-traces-processing"
+    result["formatter_sha256"] = digest(formatter)
+    result["postprocessor_sha256"] = digest(postprocessor)
+    def process(case):
+        directory = Path(case["directory"])
+        trace_directory = Path(case["traces"])
+        commands = [
+            "set -e", "unset CUDA_INJECTION64_PATH LD_PRELOAD",
+            "export CUDA_VISIBLE_DEVICES=",
+        ]
+        if any(trace_directory.glob("*.records")):
+            commands.append(shlex.join([str(formatter), str(trace_directory)]))
+        commands.append(
+            shlex.join([str(postprocessor), str(trace_directory), "-j", str(args.postprocess_threads)])
+            + (" --text" if args.postprocess_format == "text" else "")
         )
-        
-        # Spinlock tool run script
-        # will run twice, once for phase 0 and once for phase 1
-        spinlock_contents = (
-            sh_contents
-            + "\nrm -f spinlock_detection/*"
-            + "\nexport TRACES_FOLDER="
-            + this_run_dir
-            + "; SPINLOCK_PHASE=0 CUDA_INJECTION64_PATH="
-            + os.path.join(nvbit_spinlock_path, "spinlock_tool.so")
-            + " "
-            + exec_path
-            + " "
-            + str(args)
-            + " ; "
-            + " SPINLOCK_PHASE=1 CUDA_INJECTION64_PATH="
-            + os.path.join(nvbit_spinlock_path, "spinlock_tool.so")
-            + " "
-            + exec_path
-            + " "
-            + str(args)
-            + " ; "
-        )
+        (directory / "run_cpu.sh").write_text("\n".join(commands) + "\n")
+        return run_phase(directory, "run_cpu.sh", "cpu")
 
-        for path, content in [("run.sh", tracer_contents), ("run_spinlock_detection.sh", spinlock_contents)]:
-            open(os.path.join(this_run_dir, path), "w").write(content)
-            if subprocess.call(["chmod", "u+x", os.path.join(this_run_dir, path)]) != 0:
-                exit(f"Error chmod {path} runfile")
+    with ThreadPoolExecutor(max_workers=args.cpu_workers) as pool:
+        futures = {pool.submit(process, case): case for case in cases}
+        for future in as_completed(futures):
+            case = futures[future]
+            outcome = {"name": case["name"]}
+            try:
+                outcome.update(status="processed", receipt=future.result())
+            except Exception as error:
+                outcome.update(status="failed", error=str(error))
+            result["cases"].append(outcome)
+            save(root / "cpu-traces.json", result)
+            print("CPU", case["name"], outcome["status"], flush=True)
+    result["completed"] = True
+    result["ended_utc"] = datetime.now(timezone.utc).isoformat()
+    save(root / "cpu-traces.json", result)
+    return int(any(case["status"] != "processed" for case in result["cases"]))
 
 
-        if not options.norun:
-            saved_dir = os.getcwd()
-            os.chdir(this_run_dir)
-            print("Running {0}".format(exe))
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--phase", required=True, choices=["gpu", "cpu"])
+    parser.add_argument("--results-dir", required=True, type=Path)
+    parser.add_argument("--traces-dir", type=Path)
+    parser.add_argument("-B", "--benchmark_list", dest="benchmark_list", default="rodinia_2.0-ft")
+    parser.add_argument("-D", "--device_num", dest="device_num", default="0")
+    parser.add_argument("-l", "--limit_kernel_number", dest="kernel_number", type=int, default=-99)
+    parser.add_argument("-t", "--terminate_upon_limit", action="store_true")
+    parser.add_argument("--spinlock_handling", choices=["none", "fast_forward", "mark_region"], default="none")
+    parser.add_argument("--spinlock_fast_forward_iterations", type=int, default=1)
+    parser.add_argument("--cpu-workers", type=int, default=1)
+    parser.add_argument("--postprocess-threads", type=int, default=2)
+    parser.add_argument("--postprocess-format", choices=["tracez", "text"], default="tracez")
+    args = parser.parse_args()
+    if args.phase == "cpu" and (args.cpu_workers < 1 or args.postprocess_threads < 1):
+        parser.error("CPU worker and postprocess thread counts must be positive")
+    return gpu_phase(args) if args.phase == "gpu" else cpu_phase(args)
 
-            # Call the spinlock detection script
-            if options.spinlock_handling in ['fast_forward', 'mark_region']:
-                if subprocess.call(["bash", "run_spinlock_detection.sh"]) != 0:
-                    sys.exit(f"Error invoking spinlock detection on {this_run_dir}")
 
-            if subprocess.call(["bash", "run.sh"]) != 0:
-                sys.exit(f"Error invoking nvbit on {this_run_dir}")
-            os.chdir(saved_dir)
+if __name__ == "__main__":
+    raise SystemExit(main())

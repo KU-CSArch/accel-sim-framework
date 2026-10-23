@@ -1,0 +1,125 @@
+{
+  "status": "passed",
+  "reports": [
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-00/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-00/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-01/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-01/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-02/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-02/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-03/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-03/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-04/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-04/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-05/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-05/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-06/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-06/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/local/cuda-13.0/bin/ncu",
+        "--import",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-07/profile.ncu-rep",
+        "--page",
+        "raw",
+        "--csv",
+        "--log-file",
+        "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/independence-attempt02/ncu-held/process-07/metrics.csv"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

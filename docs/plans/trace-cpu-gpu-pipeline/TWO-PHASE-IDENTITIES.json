@@ -1,0 +1,54 @@
+{
+  "trace_record.h": {
+    "destination": "util/tracer_nvbit/tracer_tool/trace_record.h",
+    "sha256": "78bb3d0fad552e7c98e9ed862f4c87bed1ee3722e246d30493617473e7bc3550"
+  },
+  "common.h": {
+    "destination": "util/tracer_nvbit/tracer_tool/common.h",
+    "sha256": "5cacc8d2bd2f7f0320f5ac8fe2b97ab3db57619f9866230d6453a2ead2847e44"
+  },
+  "tracer_tool.cu": {
+    "destination": "util/tracer_nvbit/tracer_tool/tracer_tool.cu",
+    "sha256": "8c4da459f68e7c92d3687306c249d7a5c01c0fe4c3c607c5ddc3566adf41827d"
+  },
+  "tracer.Makefile": {
+    "destination": "util/tracer_nvbit/tracer_tool/Makefile",
+    "sha256": "171eabf2ddc637052e75a299d4a43b7a92e24fb18b6941444645d2fc9bd9d7b7"
+  },
+  "run_hw_trace.py": {
+    "destination": "util/tracer_nvbit/run_hw_trace.py",
+    "sha256": "5427adcacde0c656a00bbc471ba79826956ed70d20d0b66f0506bf4716251358"
+  },
+  "trace_pipeline.py": {
+    "destination": "util/tracer_nvbit/trace_pipeline.py",
+    "sha256": "7405fe1093cac52780f72dfee7a63437ce7c62c63a369b6491b856ae346218b9"
+  },
+  "formatting.Makefile": {
+    "destination": "util/tracer_nvbit/tracer_tool/formatting/Makefile",
+    "sha256": "7a9daadc34e2700b0e5ace39893741aaebfbd0258afcf818eacc27851719e40b"
+  },
+  "trace_formatter.h": {
+    "destination": "util/tracer_nvbit/tracer_tool/formatting/trace_formatter.h",
+    "sha256": "46a7fe8302e30028f0ba639e4035fc0d6fd4f4a815766c080815052d430fa893"
+  },
+  "trace_formatter.cpp": {
+    "destination": "util/tracer_nvbit/tracer_tool/formatting/trace_formatter.cpp",
+    "sha256": "3f23a94834aa19cb23ecf685a4c447b20d40af2fe2478204810151b2a3ccafbc"
+  },
+  "trace_capture.h": {
+    "destination": "util/tracer_nvbit/tracer_tool/formatting/trace_capture.h",
+    "sha256": "335c935ef6fc1922b0530235da84b1248259ce68190415c8e68a2fa2a7a6d4b6"
+  },
+  "trace_capture.cpp": {
+    "destination": "util/tracer_nvbit/tracer_tool/formatting/trace_capture.cpp",
+    "sha256": "e7ca7729698cb008aa700050c3058a782ab530df346fc6304064d927d2ae5bf3"
+  },
+  "format_trace_capture.cpp": {
+    "destination": "util/tracer_nvbit/tracer_tool/formatting/format_trace_capture.cpp",
+    "sha256": "c79a41bd6684cf77e24727b451de144bd47f1a0b3d894b67b7e0b1c9a286b36a"
+  },
+  "test_trace_pipeline.py": {
+    "destination": "util/tracer_nvbit/tests/test_trace_pipeline.py",
+    "sha256": "761ef47b262f041626332ed25e9c6a6832d0246f4ce048a0cf08ee46d92d7e5c"
+  }
+}

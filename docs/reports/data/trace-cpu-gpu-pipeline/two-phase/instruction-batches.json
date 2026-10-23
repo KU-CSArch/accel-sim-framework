@@ -1,0 +1,2171 @@
+{
+  "scope": "Host capture/CPU trace-processing cost. No native instruction timing claim.",
+  "batches": [
+    {
+      "repeat": 0,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-00-inline",
+      "gpu_phase": {
+        "wall_seconds": 27.635595437
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:40:44.206093+00:00",
+        "started_monotonic_ns": 7704262110090906,
+        "ended_monotonic_ns": 7704265033467944,
+        "wall_seconds": 2.923377038
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1880.08862
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1544.68872
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1543.99744
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1546.72754
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline/fadd-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:40:16.569988+00:00",
+            "ended_utc": "2026-10-23T08:40:23.649946+00:00",
+            "started_monotonic_ns": 7704234474009614,
+            "ended_monotonic_ns": 7704241553937284,
+            "wall_seconds": 7.07992767,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1881.28967
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1541.11804
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1569.90674
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1541.72827
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline/imad-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:40:23.650824+00:00",
+            "ended_utc": "2026-10-23T08:40:30.633420+00:00",
+            "started_monotonic_ns": 7704241554830817,
+            "ended_monotonic_ns": 7704248537411399,
+            "wall_seconds": 6.982580582,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3554.7627
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3202.46582
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3198.14746
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3199.84546
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline/shfl-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-inline/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:40:30.634318+00:00",
+            "ended_utc": "2026-10-23T08:40:44.204759+00:00",
+            "started_monotonic_ns": 7704248538324870,
+            "ended_monotonic_ns": 7704262108752494,
+            "wall_seconds": 13.570427624,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.632935876,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 0,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase",
+          "-B",
+          "trace-pipeline-validation",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:40:47.130671+00:00",
+        "started_monotonic_ns": 7704265034667273,
+        "ended_monotonic_ns": 7704292687491892,
+        "wall_seconds": 27.652824619
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:41:14.785156+00:00",
+        "started_monotonic_ns": 7704292689153022,
+        "ended_monotonic_ns": 7704298276232171,
+        "wall_seconds": 5.587079149
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1859.00342
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1541.94434
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1536.599
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1539.92725
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase/fadd-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:40:47.365044+00:00",
+            "ended_utc": "2026-10-23T08:40:54.308806+00:00",
+            "started_monotonic_ns": 7704265269063175,
+            "ended_monotonic_ns": 7704272212798857,
+            "wall_seconds": 6.943735682,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1854.34216
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1534.09241
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1533.04468
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1533.92126
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase/imad-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:40:54.310464+00:00",
+            "ended_utc": "2026-10-23T08:41:01.149243+00:00",
+            "started_monotonic_ns": 7704272214473081,
+            "ended_monotonic_ns": 7704279053235237,
+            "wall_seconds": 6.838762156,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3522.44629
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3196.81104
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3191.79883
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3215.15527
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase/shfl-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-00-two-phase/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:41:01.150699+00:00",
+            "ended_utc": "2026-10-23T08:41:14.750604+00:00",
+            "started_monotonic_ns": 7704279054706859,
+            "ended_monotonic_ns": 7704292654598124,
+            "wall_seconds": 13.599891265,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.382389103,
+      "raw_record_bytes": 1518696876,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 1,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase",
+          "-B",
+          "trace-pipeline-validation",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:41:20.373481+00:00",
+        "started_monotonic_ns": 7704298277478649,
+        "ended_monotonic_ns": 7704326305849331,
+        "wall_seconds": 28.028370682
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:41:48.403416+00:00",
+        "started_monotonic_ns": 7704326307412806,
+        "ended_monotonic_ns": 7704331445242845,
+        "wall_seconds": 5.137830039
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1904.1239
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1549.61816
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1564.81531
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1548.63721
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase/fadd-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:41:20.587157+00:00",
+            "ended_utc": "2026-10-23T08:41:27.842505+00:00",
+            "started_monotonic_ns": 7704298491175646,
+            "ended_monotonic_ns": 7704305746498674,
+            "wall_seconds": 7.255323028,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1870.24182
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1546.42334
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1545.58777
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1547.09009
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase/imad-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:41:27.844108+00:00",
+            "ended_utc": "2026-10-23T08:41:34.760332+00:00",
+            "started_monotonic_ns": 7704305748116361,
+            "ended_monotonic_ns": 7704312664324343,
+            "wall_seconds": 6.916207982,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3550.5542
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3227.99316
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3219.68335
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3222.84741
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase/shfl-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-two-phase/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:41:34.761819+00:00",
+            "ended_utc": "2026-10-23T08:41:48.355728+00:00",
+            "started_monotonic_ns": 7704312665824900,
+            "ended_monotonic_ns": 7704326259721307,
+            "wall_seconds": 13.593896407,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.765427417,
+      "raw_record_bytes": 1518696876,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 1,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-01-inline",
+      "gpu_phase": {
+        "wall_seconds": 27.872866084
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:42:21.416526+00:00",
+        "started_monotonic_ns": 7704359320523949,
+        "ended_monotonic_ns": 7704362211137771,
+        "wall_seconds": 2.890613822
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1881.28687
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1551.41211
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1548.87683
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1551.49207
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline/fadd-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:41:53.543199+00:00",
+            "ended_utc": "2026-10-23T08:42:00.798874+00:00",
+            "started_monotonic_ns": 7704331447208168,
+            "ended_monotonic_ns": 7704338702869103,
+            "wall_seconds": 7.255660935,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1867.08789
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1552.62061
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1544.92126
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1543.26428
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline/imad-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:42:00.799757+00:00",
+            "ended_utc": "2026-10-23T08:42:07.840643+00:00",
+            "started_monotonic_ns": 7704338703762476,
+            "ended_monotonic_ns": 7704345744636430,
+            "wall_seconds": 7.040873954,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3524.40527
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3197.1748
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3193.74316
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3196.58081
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline/shfl-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-01-inline/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:42:07.841549+00:00",
+            "ended_utc": "2026-10-23T08:42:21.415214+00:00",
+            "started_monotonic_ns": 7704345745555241,
+            "ended_monotonic_ns": 7704359319207700,
+            "wall_seconds": 13.573652459,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.870187348,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 2,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-02-inline",
+      "gpu_phase": {
+        "wall_seconds": 27.561287154
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:42:51.870746+00:00",
+        "started_monotonic_ns": 7704389774743453,
+        "ended_monotonic_ns": 7704392654312478,
+        "wall_seconds": 2.879569025
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1865.98401
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1538.40332
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1538.12988
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1538.9491
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline/fadd-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:42:24.308911+00:00",
+            "ended_utc": "2026-10-23T08:42:31.255641+00:00",
+            "started_monotonic_ns": 7704362212921962,
+            "ended_monotonic_ns": 7704369159635851,
+            "wall_seconds": 6.946713889,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1858.21484
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1538.77698
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1535.60693
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1538.92456
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline/imad-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:42:31.256432+00:00",
+            "ended_utc": "2026-10-23T08:42:38.311398+00:00",
+            "started_monotonic_ns": 7704369160437030,
+            "ended_monotonic_ns": 7704376215392206,
+            "wall_seconds": 7.054955176,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3518.19873
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3199.66919
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3193.38599
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3203.39551
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline/shfl-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-inline/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:42:38.312260+00:00",
+            "ended_utc": "2026-10-23T08:42:51.869376+00:00",
+            "started_monotonic_ns": 7704376216267435,
+            "ended_monotonic_ns": 7704389773367741,
+            "wall_seconds": 13.557100306,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.558769371,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 2,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase",
+          "-B",
+          "trace-pipeline-validation",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:42:54.751740+00:00",
+        "started_monotonic_ns": 7704392655736782,
+        "ended_monotonic_ns": 7704420810217516,
+        "wall_seconds": 28.154480734
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:43:22.907735+00:00",
+        "started_monotonic_ns": 7704420811732661,
+        "ended_monotonic_ns": 7704426341146735,
+        "wall_seconds": 5.529414074
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1863.70667
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1538.67639
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1537.57288
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1538.82825
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase/fadd-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:42:54.973092+00:00",
+            "ended_utc": "2026-10-23T08:43:02.013403+00:00",
+            "started_monotonic_ns": 7704392877112227,
+            "ended_monotonic_ns": 7704399917395675,
+            "wall_seconds": 7.040283448,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1859.79285
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1537.08142
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1539.58813
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1546.18164
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase/imad-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:43:02.015124+00:00",
+            "ended_utc": "2026-10-23T08:43:08.915767+00:00",
+            "started_monotonic_ns": 7704399919131044,
+            "ended_monotonic_ns": 7704406819759407,
+            "wall_seconds": 6.900628363,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3544.08545
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3220.64185
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3211.83228
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3221.51636
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase/shfl-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-02-two-phase/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:43:08.917198+00:00",
+            "ended_utc": "2026-10-23T08:43:22.866882+00:00",
+            "started_monotonic_ns": 7704406821204830,
+            "ended_monotonic_ns": 7704420770877428,
+            "wall_seconds": 13.949672598,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.890584409,
+      "raw_record_bytes": 1518696876,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 3,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase",
+          "-B",
+          "trace-pipeline-validation",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:43:28.438724+00:00",
+        "started_monotonic_ns": 7704426342720871,
+        "ended_monotonic_ns": 7704454316485150,
+        "wall_seconds": 27.973764279
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:43:56.413977+00:00",
+        "started_monotonic_ns": 7704454317974536,
+        "ended_monotonic_ns": 7704459754305326,
+        "wall_seconds": 5.43633079
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1871.17261
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1548.3136
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1548.3136
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1553.04651
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase/fadd-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:43:28.653732+00:00",
+            "ended_utc": "2026-10-23T08:43:35.645940+00:00",
+            "started_monotonic_ns": 7704426557750939,
+            "ended_monotonic_ns": 7704433549932301,
+            "wall_seconds": 6.992181362,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1875.77039
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1546.68457
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1547.1145
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1549.47168
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase/imad-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:43:35.647552+00:00",
+            "ended_utc": "2026-10-23T08:43:42.600156+00:00",
+            "started_monotonic_ns": 7704433551559266,
+            "ended_monotonic_ns": 7704440504147979,
+            "wall_seconds": 6.952588713,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3549.65918
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3215.78198
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3257.7168
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3216.50977
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase/shfl-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-two-phase/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:43:42.601522+00:00",
+            "ended_utc": "2026-10-23T08:43:56.382127+00:00",
+            "started_monotonic_ns": 7704440505529241,
+            "ended_monotonic_ns": 7704454286120661,
+            "wall_seconds": 13.78059142,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.725361495,
+      "raw_record_bytes": 1518696876,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 3,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-03-inline",
+      "gpu_phase": {
+        "wall_seconds": 27.685551244
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:44:29.538567+00:00",
+        "started_monotonic_ns": 7704487442564702,
+        "ended_monotonic_ns": 7704490376387910,
+        "wall_seconds": 2.933823208
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1882.3363
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1553.24512
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1550.75073
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1553.89441
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline/fadd-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:44:01.852539+00:00",
+            "ended_utc": "2026-10-23T08:44:08.863540+00:00",
+            "started_monotonic_ns": 7704459756548692,
+            "ended_monotonic_ns": 7704466767534116,
+            "wall_seconds": 7.010985424,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1871.34241
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1556.51392
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1553.59949
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1556.84143
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline/imad-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:44:08.864396+00:00",
+            "ended_utc": "2026-10-23T08:44:15.872864+00:00",
+            "started_monotonic_ns": 7704466768402712,
+            "ended_monotonic_ns": 7704473776857921,
+            "wall_seconds": 7.008455209,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3548.05859
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3229.74536
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3214.96045
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3227.52002
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline/shfl-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-03-inline/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:44:15.873762+00:00",
+            "ended_utc": "2026-10-23T08:44:29.537273+00:00",
+            "started_monotonic_ns": 7704473777767936,
+            "ended_monotonic_ns": 7704487441265765,
+            "wall_seconds": 13.663497829,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.682938462000003,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 4,
+      "mode": "inline",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-04-inline",
+      "gpu_phase": {
+        "wall_seconds": 27.820596843
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:45:00.295670+00:00",
+        "started_monotonic_ns": 7704518199667858,
+        "ended_monotonic_ns": 7704521178390596,
+        "wall_seconds": 2.978722738
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1877.52856
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1553.91882
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1547.87732
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1551.79822
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline/fadd-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:44:32.474656+00:00",
+            "ended_utc": "2026-10-23T08:44:39.725523+00:00",
+            "started_monotonic_ns": 7704490378666863,
+            "ended_monotonic_ns": 7704497629516583,
+            "wall_seconds": 7.25084972,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1805.79333
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1551.51855
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1550.95435
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1551.24231
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline/imad-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:44:39.726401+00:00",
+            "ended_utc": "2026-10-23T08:44:46.688210+00:00",
+            "started_monotonic_ns": 7704497630407141,
+            "ended_monotonic_ns": 7704504592204264,
+            "wall_seconds": 6.961797123,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3558.28638
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3226.96094
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3222.76758
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3228.11401
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline/shfl-c1-o0/one-warp-2048-rounds/run_inline.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-inline/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:44:46.689084+00:00",
+            "ended_utc": "2026-10-23T08:45:00.294372+00:00",
+            "started_monotonic_ns": 7704504593090174,
+            "ended_monotonic_ns": 7704518198366105,
+            "wall_seconds": 13.605275931,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.817922774,
+      "raw_record_bytes": 0,
+      "numerical_outputs_correct": 12
+    },
+    {
+      "repeat": 4,
+      "mode": "two-phase",
+      "directory": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase",
+      "trace_directory": "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase",
+      "gpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "gpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase",
+          "--traces-dir",
+          "/mnt/hdd0/work/traces/gpu-uarchsim/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase",
+          "-B",
+          "trace-pipeline-validation",
+          "-D",
+          "GPU-088c2fff-3078-7fc9-c630-87034d7184fd"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:45:03.276093+00:00",
+        "started_monotonic_ns": 7704521180090539,
+        "ended_monotonic_ns": 7704549265451649,
+        "wall_seconds": 28.08536111
+      },
+      "cpu_phase": {
+        "argv": [
+          "/home/inje/anaconda3/bin/python3",
+          "/home/inje/workspace/gpu/gpu-uarchsim/worktree/accel-sim-trace-cpu-gpu/util/tracer_nvbit/run_hw_trace.py",
+          "--phase",
+          "cpu",
+          "--results-dir",
+          "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase",
+          "--cpu-workers",
+          "1",
+          "--postprocess-format",
+          "tracez"
+        ],
+        "exit_code": 0,
+        "started_utc": "2026-10-23T08:45:31.363060+00:00",
+        "started_monotonic_ns": 7704549267056472,
+        "ended_monotonic_ns": 7704554941316662,
+        "wall_seconds": 5.67426019
+      },
+      "cases": [
+        {
+          "binary": "fadd-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "fadd",
+            "kind": 0,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1879.80286
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1554.17188
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1551.33752
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1554.17908
+              }
+            ]
+          },
+          "golden_sha256": "4f4a559d295896f589a4d52b2a8a576ba8bc72749d8bdc75a406b818f864a95a",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase/fadd-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase/fadd-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:45:03.493812+00:00",
+            "ended_utc": "2026-10-23T08:45:10.615236+00:00",
+            "started_monotonic_ns": 7704521397832484,
+            "ended_monotonic_ns": 7704528519228216,
+            "wall_seconds": 7.121395732,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "imad-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "imad",
+            "kind": 2,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 17,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1870.96375
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1551.0293
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 1549.9541
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 1550.95337
+              }
+            ]
+          },
+          "golden_sha256": "89c2f21e92267fd22b79e927b717d01495704004a3170f6a21d51701c6e983c1",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase/imad-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase/imad-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:45:10.616953+00:00",
+            "ended_utc": "2026-10-23T08:45:17.637331+00:00",
+            "started_monotonic_ns": 7704528520960310,
+            "ended_monotonic_ns": 7704535541322731,
+            "wall_seconds": 7.020362421,
+            "exit_code": 0
+          }
+        },
+        {
+          "binary": "shfl-c1-o0",
+          "record": {
+            "experiment": "execution-pipeline",
+            "unit": "shfl",
+            "kind": 7,
+            "chains": 1,
+            "separated": 0,
+            "warps": 1,
+            "rounds": 2048,
+            "paths": 1,
+            "mask": 1,
+            "words": 32,
+            "registers": 16,
+            "local_bytes": 0,
+            "trials": [
+              {
+                "launch": 0,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3542.34155
+              },
+              {
+                "launch": 1,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3224.43262
+              },
+              {
+                "launch": 2,
+                "warmup": true,
+                "mismatches": 0,
+                "event_ms": 3217.3374
+              },
+              {
+                "launch": 3,
+                "warmup": false,
+                "mismatches": 0,
+                "event_ms": 3224.75122
+              }
+            ]
+          },
+          "golden_sha256": "f110a785de3ad70b299b74509ed7041ad9233da9a83d03a476d9e9ecb33f334e",
+          "receipt": {
+            "argv": [
+              "bash",
+              "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase/shfl-c1-o0/one-warp-2048-rounds/run_gpu.sh"
+            ],
+            "cwd": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/pr1/two-phase-capture-20261023T082229Z/timings/repeat-04-two-phase/shfl-c1-o0/one-warp-2048-rounds",
+            "phase": "gpu",
+            "started_utc": "2026-10-23T08:45:17.638799+00:00",
+            "ended_utc": "2026-10-23T08:45:31.307689+00:00",
+            "started_monotonic_ns": 7704535542806676,
+            "ended_monotonic_ns": 7704549211682690,
+            "wall_seconds": 13.668876014,
+            "exit_code": 0
+          }
+        }
+      ],
+      "capture_process_seconds": 27.810634167,
+      "raw_record_bytes": 1518696876,
+      "numerical_outputs_correct": 12
+    }
+  ],
+  "source_hashes": {
+    "util/tracer_nvbit/run_hw_trace.py": "743e6733c2e801a8853ad0ae73bd6857ab7cf683ad61969bb6a4b336a9fa6d38",
+    "util/tracer_nvbit/trace_pipeline.py": "7405fe1093cac52780f72dfee7a63437ce7c62c63a369b6491b856ae346218b9",
+    "util/tracer_nvbit/tracer_tool/tracer_tool.so": "2394534e1b280e95111f371b63aef54223727f3c8f9206b2744a967d21ebca6b",
+    "util/tracer_nvbit/tracer_tool/formatting/format-trace-capture": "192c920c8f35421d718186ffe0cf6bd39328f2f4b338a25d38d4741ffa6d7d94"
+  }
+}

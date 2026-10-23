@@ -1,0 +1,20 @@
+{
+  "build_argv": [
+    "g++",
+    "-std=c++17",
+    "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/trace-cpu-gpu-validation-20261023T051554Z/record-layout.cpp",
+    "-o",
+    "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/trace-cpu-gpu-validation-20261023T051554Z/record-layout"
+  ],
+  "build_exit_code": 0,
+  "run_exit_code": 0,
+  "measurement": {
+    "inst_trace_t_bytes": 1296,
+    "regular_payload_bytes": 1208,
+    "lane_value_arrays_bytes": 896,
+    "payload_offset": 88,
+    "long_sync_reported_instruction_count": 75498384,
+    "unmodified_struct_dump_bytes": 97845905664,
+    "scope": "Measured host ABI for the public Accel-Sim common.h structure. A proposed raw struct dump, not the current trace file format. No capture behavior changed."
+  }
+}

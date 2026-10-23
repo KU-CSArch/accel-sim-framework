@@ -1,0 +1,17 @@
+{
+  "fadd-c1-o0": {
+    "kind": 0,
+    "chains": 1,
+    "separated": 0
+  },
+  "imad-c1-o0": {
+    "kind": 2,
+    "chains": 1,
+    "separated": 0
+  },
+  "shfl-c1-o0": {
+    "kind": 7,
+    "chains": 1,
+    "separated": 0
+  }
+}

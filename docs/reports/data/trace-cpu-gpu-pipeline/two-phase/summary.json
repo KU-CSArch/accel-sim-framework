@@ -1,0 +1,338 @@
+{
+  "instruction-batch": {
+    "inline": {
+      "capture_seconds": {
+        "median": 27.682938462000003,
+        "min": 27.558769371,
+        "max": 27.870187348,
+        "values": [
+          27.632935876,
+          27.870187348,
+          27.558769371,
+          27.682938462000003,
+          27.817922774
+        ]
+      },
+      "cpu_seconds": {
+        "median": 2.923377038,
+        "min": 2.879569025,
+        "max": 2.978722738,
+        "values": [
+          2.923377038,
+          2.890613822,
+          2.879569025,
+          2.933823208,
+          2.978722738
+        ]
+      },
+      "sequential_phase_sum_seconds": {
+        "median": 30.616761670000002,
+        "min": 30.438338396,
+        "max": 30.796645511999998,
+        "values": [
+          30.556312914000003,
+          30.76080117,
+          30.438338396,
+          30.616761670000002,
+          30.796645511999998
+        ]
+      },
+      "record_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "two-phase": {
+      "capture_seconds": {
+        "median": 27.765427417,
+        "min": 27.382389103,
+        "max": 27.890584409,
+        "values": [
+          27.382389103,
+          27.765427417,
+          27.890584409,
+          27.725361495,
+          27.810634167
+        ]
+      },
+      "cpu_seconds": {
+        "median": 5.529414074,
+        "min": 5.137830039,
+        "max": 5.67426019,
+        "values": [
+          5.587079149,
+          5.137830039,
+          5.529414074,
+          5.43633079,
+          5.67426019
+        ]
+      },
+      "sequential_phase_sum_seconds": {
+        "median": 33.161692285,
+        "min": 32.903257456,
+        "max": 33.484894357,
+        "values": [
+          32.969468252,
+          32.903257456,
+          33.419998483,
+          33.161692285,
+          33.484894357
+        ]
+      },
+      "record_bytes": {
+        "median": 1518696876,
+        "min": 1518696876,
+        "max": 1518696876,
+        "values": [
+          1518696876,
+          1518696876,
+          1518696876,
+          1518696876,
+          1518696876
+        ]
+      }
+    }
+  },
+  "vector-add": {
+    "inline": {
+      "capture_seconds": {
+        "median": 19.640497693,
+        "min": 19.284364704,
+        "max": 20.588263029,
+        "values": [
+          20.588263029,
+          19.481535669,
+          19.284364704,
+          19.948264261,
+          19.640497693
+        ]
+      },
+      "cpu_seconds": {
+        "median": 6.593281068,
+        "min": 6.502433992,
+        "max": 6.780191162,
+        "values": [
+          6.544547647,
+          6.502433992,
+          6.593281068,
+          6.603783434,
+          6.780191162
+        ]
+      },
+      "sequential_phase_sum_seconds": {
+        "median": 26.420688855,
+        "min": 25.877645772,
+        "max": 27.132810676,
+        "values": [
+          27.132810676,
+          25.983969661,
+          25.877645772,
+          26.552047695,
+          26.420688855
+        ]
+      },
+      "record_bytes": {
+        "median": 0,
+        "min": 0,
+        "max": 0,
+        "values": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "two-phase": {
+      "capture_seconds": {
+        "median": 19.236919404,
+        "min": 17.666301396,
+        "max": 21.620050677,
+        "values": [
+          18.842082119,
+          17.666301396,
+          21.620050677,
+          19.236919404,
+          21.011704386
+        ]
+      },
+      "cpu_seconds": {
+        "median": 13.749893375,
+        "min": 13.587609381,
+        "max": 13.913682109,
+        "values": [
+          13.749893375,
+          13.587609381,
+          13.913682109,
+          13.867108944,
+          13.666088025
+        ]
+      },
+      "sequential_phase_sum_seconds": {
+        "median": 33.104028348,
+        "min": 31.253910777,
+        "max": 35.533732786,
+        "values": [
+          32.591975493999996,
+          31.253910777,
+          35.533732786,
+          33.104028348,
+          34.677792411
+        ]
+      },
+      "record_bytes": {
+        "median": 2717932808,
+        "min": 2717932808,
+        "max": 2717932808,
+        "values": [
+          2717932808,
+          2717932808,
+          2717932808,
+          2717932808,
+          2717932808
+        ]
+      }
+    }
+  },
+  "independence": {
+    "held_seconds": 25.449273788,
+    "native_processes": 6,
+    "native_launch_outputs": 60,
+    "ncu_collections": 8,
+    "ncu_launch_outputs": 32,
+    "following_gpu_capture_processes": 1,
+    "scope": "Deliberate CPU pause proves process independence; it is excluded from throughput measurements. All following jobs finish before release."
+  },
+  "ncu_readings": [
+    {
+      "process": "process-00",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 155.584
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 279958.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-01",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 145.92
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 280095.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-02",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 155.552
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 279948.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-03",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 145.92
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 280109.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-04",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 155.584
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 279948.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-05",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 155.584
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 279960.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-06",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 155.584
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 279963.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    },
+    {
+      "process": "process-07",
+      "gpu__time_duration.sum": {
+        "unit": "us",
+        "value": 155.584
+      },
+      "sm__cycles_elapsed.max": {
+        "unit": "cycle",
+        "value": 279955.0
+      },
+      "smsp__inst_issued.sum": {
+        "unit": "inst",
+        "value": 71720.0
+      }
+    }
+  ],
+  "scope": "Host capture and trace processing on a shared host. Five observations per setting. No claim of native instruction timing or simulation accuracy. Original single-CTA record verification overlapped part of the vector experiment; other CPU simulations and GPU1 collection were active."
+}

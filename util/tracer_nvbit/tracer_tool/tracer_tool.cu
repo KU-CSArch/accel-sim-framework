@@ -18,6 +18,7 @@
 #include <memory>
 #include <regex>
 #include <sstream>
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
@@ -33,6 +34,7 @@
 
 /* contains definition of the inst_trace_t structure */
 #include "common.h"
+#include "formatting/trace_capture.h"
 
 /* contains definition of the WarpsyncCollectiveWatchdog structure */
 #include "watchdog.h"
@@ -98,6 +100,7 @@ int user_defined_folders = 0;
 
 /* Use xz to compress the *.trace file */
 int xz_compress_trace = 0;
+int defer_formatting = 0;
 
 // Debugging helper
 #define DPRINTF(fmt, ...)                                                      \
@@ -136,6 +139,8 @@ std::unordered_map<CUcontext, std::string> ctx_kernelslist;
 std::unordered_map<CUcontext, std::string> ctx_stats_location;
 std::unordered_map<CUcontext, int> ctx_kernelid;
 std::unordered_map<CUcontext, FILE *> ctx_resultsFile;
+std::unordered_map<CUcontext, std::unique_ptr<accelsim_trace::TraceFormatter>> ctx_formatters;
+std::unordered_map<CUcontext, std::vector<FILE *>> ctx_deferred_files;
 std::unordered_map<CUcontext, std::string> ctx_current_kernel_name;
 
 std::string kernel_ranges = "";
@@ -252,14 +257,6 @@ bool should_trace_kernel(uint64_t kernel_id, const std::string &kernel_name) {
   return false;
 }
 
-enum address_format {
-  list_all = 0,
-  base_stride = 1,
-  base_delta = 2,
-  tma_list_all = 3,
-  tma_base_delta = 4
-};
-
 /* File pointers for the kernels, and stats files */
 static FILE *kernelsFile = NULL;
 static FILE *statsFile = NULL;
@@ -320,6 +317,8 @@ void nvbit_at_init() {
   GET_VAR_INT(xz_compress_trace, "TRACE_FILE_COMPRESS", 1,
               "Create xz-compressed trace"
               "file");
+  GET_VAR_INT(defer_formatting, "TRACE_DEFER_FORMATTING", 0,
+              "Collect GPU records; format and compress them in a separate CPU phase");
   GET_VAR_INT(spinlock_handling_mode, "SPINLOCK_HANDLING_MODE", 0,
               "Spinlock handling mode: 0=none, 1=fast_forward, 2=mark_region");
   GET_VAR_INT(spinlock_iter_to_keep, "SPINLOCK_ITER_TO_KEEP", 1,
@@ -638,6 +637,59 @@ __global__ void flush_channel() {
   channel_dev.flush();
 }
 
+static accelsim_trace::FormattingOptions formatting_options(const std::string &kernel_name) {
+  accelsim_trace::FormattingOptions options;
+  options.address_compression=enable_compress;
+  options.print_core_id=print_core_id;
+  options.lineinfo=lineinfo;
+  options.register_values=allow_reg_val_tracing;
+  options.raw_xz_compression=xz_compress_trace;
+  options.spinlock_mode=spinlock_handling_mode;
+  options.spinlock_iterations=spinlock_iter_to_keep;
+  auto found=spinlock_instr_map.find(kernel_name);
+  options.spinlock_metadata_present=found!=spinlock_instr_map.end() && found->second;
+  if(options.spinlock_metadata_present) options.spinlock_indices=*found->second;
+  return options;
+}
+
+// The SDK's TMA APIs take the live CUDA context. Collect their returned values
+// here; their textual formatting and address compression run in the CPU phase.
+static accelsim_trace::TmaSnapshot capture_tma(CUcontext ctx,inst_trace_t *trace,
+                                               const std::string &opcode) {
+  accelsim_trace::TmaSnapshot captured;
+  if(trace->inst_type!=INST_TMA || !(trace->active_mask & trace->predicate_mask))
+    return captured;
+  const char *name=opcode.c_str();
+  TMATransferInfo_t info=nvbit_parse_tma_transfer_info(ctx,name,
+      trace->inst.tma.tma_param_handle,trace->inst.tma.tma_param_handle_size);
+  captured.transfer_size=info.transfer_size;
+  captured.destination_is_shared=info.dst_memspace==InstrType::MemorySpace::DISTRIBUTED_SHARED;
+  if(captured.destination_is_shared) {
+    captured.mbar_valid=info.dst.shared.is_mbar_valid;
+    captured.mbar_address=info.dst.shared.mbar_address;
+    captured.multicast=info.is_multicast;
+    captured.multicast_mask=info.multicast_cta_mask;
+  }
+  captured.byte_count=info.byte_count;
+  captured.oob_byte_count=info.is_tensor ? info.tensor.oob_transfer_count*info.transfer_size : 0;
+  captured.transfer_count=info.transfer_count;
+  struct Collector {
+    std::vector<uint64_t> *addresses;
+    static void callback(const TMAElementAddress_t *addresses,size_t count,void *argument) {
+      auto *self=static_cast<Collector *>(argument);
+      for(size_t i=0;i<count;++i)
+        if(!addresses[i].is_oob) self->addresses->push_back(addresses[i].address);
+    }
+  } collector{&captured.global_addresses};
+  if(info.src_memspace==InstrType::MemorySpace::GLOBAL)
+    nvbit_parse_tma_src_addrs(ctx,name,trace->inst.tma.tma_param_handle,
+        trace->inst.tma.tma_param_handle_size,Collector::callback,&collector);
+  else if(info.dst_memspace==InstrType::MemorySpace::GLOBAL)
+    nvbit_parse_tma_dst_addrs(ctx,name,trace->inst.tma.tma_param_handle,
+        trace->inst.tma.tma_param_handle_size,Collector::callback,&collector);
+  return captured;
+}
+
 static void enter_kernel_launch(CUcontext ctx, CUfunction func,
                                 nvbit_api_cuda_t cbid, void *params,
                                 bool stream_capture = false,
@@ -717,7 +769,13 @@ static void enter_kernel_launch(CUcontext ctx, CUfunction func,
           ctx_kernelid[ctx], ctx);
 
   if (!stop_report) {
-    if (!xz_compress_trace) {
+    if (defer_formatting) {
+      std::string records=std::string(buffer)+".records";
+      ctx_resultsFile[ctx]=fopen(records.c_str(),"wb");
+      if(!ctx_resultsFile[ctx]) throw std::runtime_error("Cannot create "+records);
+      ctx_deferred_files[ctx].push_back(ctx_resultsFile[ctx]);
+      printf("Collecting GPU records to %s\n",records.c_str());
+    } else if (!xz_compress_trace) {
       ctx_resultsFile[ctx] = fopen(buffer, "w");
       printf("Writing results to %s\n", buffer);
     } else {
@@ -767,6 +825,11 @@ static void enter_kernel_launch(CUcontext ctx, CUfunction func,
               "immediate1 immediate2\n");
     }
     fprintf(ctx_resultsFile[ctx], "\n");
+    auto options=formatting_options(func_name);
+    if(defer_formatting)
+      accelsim_trace::begin_capture(ctx_resultsFile[ctx],options);
+    else
+      ctx_formatters[ctx]=std::make_unique<accelsim_trace::TraceFormatter>(ctx_resultsFile[ctx],options);
   }
 
   kernelsFile = fopen(ctx_kernelslist[ctx].c_str(), "a");
@@ -803,7 +866,7 @@ static void leave_kernel_launch(CUcontext ctx, CUfunction func) {
   if (err != cudaSuccess) {
     printf("cuda error: %s\n", cudaGetErrorName(err));
     printf("cuda error explanation: %s\n", cudaGetErrorString(err));
-    if (!xz_compress_trace) {
+    if (defer_formatting || !xz_compress_trace) {
       fclose(ctx_resultsFile[ctx]);
     } else {
       pclose(ctx_resultsFile[ctx]);
@@ -845,7 +908,13 @@ static void leave_kernel_launch(CUcontext ctx, CUfunction func) {
   fclose(statsFile);
 
   if (!stop_report) {
-    if (!xz_compress_trace) {
+    if (defer_formatting) {
+      FILE *file=ctx_resultsFile[ctx];
+      accelsim_trace::finish_capture(file,id_to_opcode_map);
+      if(fclose(file)) throw std::runtime_error("Closing collected GPU records failed");
+      auto &files=ctx_deferred_files[ctx];
+      files.erase(std::remove(files.begin(),files.end(),file),files.end());
+    } else if (!xz_compress_trace) {
       fclose(ctx_resultsFile[ctx]);
     } else {
       pclose(ctx_resultsFile[ctx]);
@@ -1032,120 +1101,10 @@ void nvbit_at_cuda_event(CUcontext ctx, int is_exit, nvbit_api_cuda_t cbid,
   }
 }
 
-bool is_number(const std::string &s) {
-  std::string::const_iterator it = s.begin();
-  while (it != s.end() && std::isdigit(*it))
-    ++it;
-  return !s.empty() && it == s.end();
-}
-
-unsigned get_datawidth_from_opcode(const std::vector<std::string> &opcode) {
-  for (unsigned i = 0; i < opcode.size(); ++i) {
-    if (is_number(opcode[i])) {
-      return (std::stoi(opcode[i], NULL) / 8);
-    } else if (opcode[i][0] == 'U' && is_number(opcode[i].substr(1))) {
-      // handle the U* case
-      unsigned bits;
-      sscanf(opcode[i].c_str(), "U%u", &bits);
-      return bits / 8;
-    }
-  }
-
-  return 4; // default is 4 bytes
-}
-
-bool check_opcode_contain(const std::vector<std::string> &opcode,
-                          std::string param) {
-  for (unsigned i = 0; i < opcode.size(); ++i)
-    if (opcode[i] == param)
-      return true;
-
-  return false;
-}
-
-bool base_stride_compress(const uint64_t *addrs, const std::bitset<32> &mask,
-                          uint64_t &base_addr, int &stride) {
-  // calulcate the difference between addresses
-  // write cosnsctive addresses with constant stride in a more
-  // compressed way (i.e. start adress and stride)
-  bool const_stride = true;
-  bool first_bit1_found = false;
-  bool last_bit1_found = false;
-
-  for (int s = 0; s < 32; s++) {
-    if (mask.test(s) && !first_bit1_found) {
-      first_bit1_found = true;
-      base_addr = addrs[s];
-      if (s < 31 && mask.test(s + 1))
-        stride = addrs[s + 1] - addrs[s];
-      else {
-        const_stride = false;
-        break;
-      }
-    } else if (first_bit1_found && !last_bit1_found) {
-      if (mask.test(s)) {
-        if (stride != addrs[s] - addrs[s - 1]) {
-          const_stride = false;
-          break;
-        }
-      } else
-        last_bit1_found = true;
-    } else if (last_bit1_found) {
-      if (mask.test(s)) {
-        const_stride = false;
-        break;
-      }
-    }
-  }
-
-  return const_stride;
-}
-
-void base_delta_compress(const uint64_t *addrs, const std::bitset<32> &mask,
-                         uint64_t &base_addr, std::vector<long long> &deltas) {
-  // save the delta from the previous address
-  bool first_bit1_found = false;
-  uint64_t last_address = 0;
-  for (int s = 0; s < 32; s++) {
-    if (mask.test(s) && !first_bit1_found) {
-      base_addr = addrs[s];
-      first_bit1_found = true;
-      last_address = addrs[s];
-    } else if (mask.test(s) && first_bit1_found) {
-      deltas.push_back(addrs[s] - last_address);
-      last_address = addrs[s];
-    }
-  }
-}
-
-void base_delta_compress_tma(const uint64_t *addrs, const size_t num_addrs,
-                             const std::bitset<32> &mask, uint64_t &base_addr,
-                             std::vector<long long> &deltas) {
-  // TMA version for delta compression
-  bool warp_active = mask.any() && num_addrs > 1;
-  if (warp_active) {
-    base_addr = addrs[0];
-    for (size_t i = 1; i < num_addrs; i++) {
-      deltas.push_back(addrs[i] - addrs[i - 1]);
-    }
-  }
-}
-
 void trim_string(std::string &str) {
   // Remove the leading and trailing spaces
   str.erase(0, str.find_first_not_of(' '));
   str.erase(str.find_last_not_of(' ') + 1);
-}
-
-typedef std::map<uint32_t, size_t> counter_t;
-typedef std::tuple<uint32_t, uint32_t, uint32_t, uint32_t> warp_key_t;
-
-counter_t create_counter(const std::vector<uint32_t> &indices) {
-  counter_t counter;
-  for (auto instr_idx : indices) {
-    counter[instr_idx] = 0;
-  }
-  return counter;
 }
 
 std::pair<std::string, std::vector<uint32_t>>
@@ -1166,507 +1125,38 @@ parse_spinlock_instructions(const std::string &line) {
   return {kernel_name, indices};
 }
 
-/* Emit a REPLAY_START or REPLAY_END marker to the trace file */
-void emit_replay_marker(FILE *outfile, inst_trace_t *trace,
-                        const char *marker_opcode) {
-  // CTA ID
-  fprintf(outfile, "%d ", trace->cta_id_x);
-  fprintf(outfile, "%d ", trace->cta_id_y);
-  fprintf(outfile, "%d ", trace->cta_id_z);
-  fprintf(outfile, "%d ", trace->warpid_tb);
-  // Cluster info
-  fprintf(outfile, "%d ", trace->cluster_id_x);
-  fprintf(outfile, "%d ", trace->cluster_id_y);
-  fprintf(outfile, "%d ", trace->cluster_id_z);
-  fprintf(outfile, "%d ", trace->cluster_cta_id_x);
-  fprintf(outfile, "%d ", trace->cluster_cta_id_y);
-  fprintf(outfile, "%d ", trace->cluster_cta_id_z);
-  fprintf(outfile, "%d ", trace->cluster_rank);
-  // PC (use 0000 for markers)
-  fprintf(outfile, "0000 ");
-  // Mask (all active)
-  fprintf(outfile, "ffffffff ");
-  // dest_num = 0
-  fprintf(outfile, "0 ");
-  // Opcode
-  fprintf(outfile, "%s ", marker_opcode);
-  // src_num = 0, mem_width = 0, imm1 = 0, imm2 = 0
-  fprintf(outfile, "0 0 0 0\n");
-}
-
-/* Per-warp state for mark_region mode */
-struct warp_replay_state_t {
-  bool in_region;     // currently inside spinlock region
-  bool start_emitted; // REPLAY_START already written for this region
-  int iter_count;     // iterations recorded so far
-};
-
 void *recv_thread_fun(void *args) {
-  CUcontext ctx = (CUcontext)args;
-  char *recv_buffer = (char *)malloc(CHANNEL_SIZE);
-
-  // This counter map will keep track of the spinlock instruction
-  // count in the current detected spinlock loop for each warp
-  // The detection start if a spinlock instruction is encountered (start to
-  // increment the counter) and end when a non-spinlock instruction is
-  // encountered (clear the counter)
-  std::map<warp_key_t, counter_t> warp_counter_map;
-
-  // Per-warp replay state for mark_region mode
-  std::map<warp_key_t, warp_replay_state_t> warp_replay_map;
-
-  while (recv_thread_started) {
-    uint32_t num_recv_bytes = 0;
-    if (recv_thread_receiving &&
-        (num_recv_bytes = channel_host.recv(recv_buffer, CHANNEL_SIZE)) > 0) {
-      uint32_t num_processed_bytes = 0;
-      while (num_processed_bytes < num_recv_bytes) {
-        inst_trace_t *trace = (inst_trace_t *)&recv_buffer[num_processed_bytes];
-
-        /* when we get this cta_id_x it means the kernel has completed
-         */
-        if (trace->cta_id_x == -1) {
-          recv_thread_receiving = false;
-          if (spinlock_handling_mode > SPINLOCK_MODE_NONE) {
-            // Clear the counter and replay maps for all warps as we are
-            // starting a new kernel
-            warp_counter_map.clear();
-            warp_replay_map.clear();
-          }
-          break;
-        }
-
-        std::string opcode = id_to_opcode_map[trace->opcode_id];
-        // only dump reg val if opcode contains: BAR
-        bool dump_reg_val = false;
-        if (allow_reg_val_tracing &&
-            ((opcode.find("BAR") != std::string::npos ||
-              opcode.find("HGMMA") != std::string::npos ||
-              opcode.find("SYNCS.ARRIVE") != std::string::npos ||
-              opcode.find("SYNCS.EXCH.64") != std::string::npos ||
-              opcode.find("SYNCS.PHASECHK.TRANS64.TRYWAIT") !=
-                  std::string::npos ||
-              opcode.find("SYNCS.PHASECHK.TRANS64") != std::string::npos))) {
-          // SYNCS: Mbarrier related instructions
-          // SYNCS.ARRIVE: equivalent to mbarrier.arrive, register values are
-          // the arrival count or expect tx count SYNCS.EXCH.64: equivalent to
-          // mbarrier.init, register values are the mbarrier arrival count
-          // SYNCS.PHASECHK.TRANS64.TRYWAIT: equivalent to mbarrier.try_wait,
-          // register values are the phase this wait is for
-          // SYNCS.PHASECHK.TRANS64: equivalent to mbarrier.test_wait,
-          // register values are the phase this wait is for
-          dump_reg_val = true;
-        }
-
-        /* Spinlock handling (fast_forward or mark_region) */
-        if (spinlock_handling_mode > SPINLOCK_MODE_NONE) {
-          // Check if this warp is in the warp_counter_map
-          warp_key_t warp_key =
-              std::make_tuple(trace->cta_id_x, trace->cta_id_y, trace->cta_id_z,
-                              trace->warpid_tb);
-          if (warp_counter_map.find(warp_key) == warp_counter_map.end()) {
-            // This warp is not in the warp_counter_map, so we create a counter
-            // for this warp using the spinlock instruction indices for the
-            // current kernel
-            std::vector<uint32_t> &indices =
-                *(spinlock_instr_map[ctx_current_kernel_name[ctx]]);
-            warp_counter_map[warp_key] = create_counter(indices);
-            if (spinlock_handling_mode == SPINLOCK_MODE_MARK_REGION) {
-              warp_replay_map[warp_key] = {false, false, 0};
-            }
-          }
-
-          // Get the counter map for this warp
-          auto &counter = warp_counter_map[warp_key];
-          bool is_spinlock_instr =
-              (counter.find(trace->instr_idx) != counter.end());
-
-          if (spinlock_handling_mode == SPINLOCK_MODE_FAST_FORWARD) {
-            // Fast-forward mode: skip instructions beyond threshold
-            if (is_spinlock_instr) {
-              counter[trace->instr_idx]++;
-              if (counter[trace->instr_idx] > spinlock_iter_to_keep) {
-                // This spinlock instruction is executed more than the threshold
-                // so we fast forward it in the output trace
-                // Note we are only fast forwarding the innermost spinlock loop
-                num_processed_bytes += sizeof(inst_trace_t);
-                continue;
-              }
-            } else {
-              // We are exiting the innermost spinlock loop, so we reset the
-              // counter map for this warp
-              for (auto &[instr_idx, count] : counter) {
-                count = 0;
-              }
-            }
-          } else if (spinlock_handling_mode == SPINLOCK_MODE_MARK_REGION) {
-            // Mark-region mode: emit REPLAY_START/REPLAY_END markers
-            auto &replay_state = warp_replay_map[warp_key];
-
-            if (is_spinlock_instr) {
-              counter[trace->instr_idx]++;
-
-              // Entering spinlock region
-              if (!replay_state.in_region) {
-                replay_state.in_region = true;
-                replay_state.start_emitted = false;
-                replay_state.iter_count = 1;
-              }
-
-              // Emit REPLAY_START before first instruction in region
-              if (!replay_state.start_emitted) {
-                emit_replay_marker(ctx_resultsFile[ctx], trace, "REPLAY_START");
-                replay_state.start_emitted = true;
-              }
-
-              // Skip if beyond first iteration
-              if (counter[trace->instr_idx] > spinlock_iter_to_keep) {
-                num_processed_bytes += sizeof(inst_trace_t);
-                continue;
-              }
-              // else: fall through to emit the instruction
-            } else {
-              // Non-spinlock instruction
-              if (replay_state.in_region) {
-                // Exiting spinlock region - emit REPLAY_END
-                emit_replay_marker(ctx_resultsFile[ctx], trace, "REPLAY_END");
-                replay_state.in_region = false;
-                replay_state.start_emitted = false;
-                // Reset counters
-                for (auto &[instr_idx, count] : counter) {
-                  count = 0;
-                }
-              }
-              // else: fall through to emit the instruction
-            }
-          }
-        }
-
-        // Dump trace in text
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cta_id_x);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cta_id_y);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cta_id_z);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->warpid_tb);
-        // Cluster information
-        // Cluster id within the grid
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_id_x);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_id_y);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_id_z);
-        // CTA id within the cluster
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_cta_id_x);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_cta_id_y);
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_cta_id_z);
-        // CTA rank within the cluster
-        fprintf(ctx_resultsFile[ctx], "%d ", trace->cluster_rank);
-        if (print_core_id) {
-          fprintf(ctx_resultsFile[ctx], "%d ", trace->sm_id);
-          fprintf(ctx_resultsFile[ctx], "%d ", trace->warpid_sm);
-        }
-        if (lineinfo) {
-          fprintf(ctx_resultsFile[ctx], "%d ", trace->line_num);
-        }
-        fprintf(ctx_resultsFile[ctx], "%04x ",
-                trace->vpc); // Print the virtual PC
-        fprintf(ctx_resultsFile[ctx], "%08x ",
-                trace->active_mask & trace->predicate_mask);
-
-        // Helper function to print the register number
-        auto print_reg = [&](int reg_num) {
-          if (reg_num >= 256) {
-            fprintf(ctx_resultsFile[ctx], "UR%d ", reg_num - UREG_OFFSET);
-          } else {
-            fprintf(ctx_resultsFile[ctx], "R%d ", reg_num);
-          }
-        };
-
-        // Only regular instructions have register information
-        // While TMA instruction also does, but they are all
-        // uniform register and we cannot obtain them from
-        // iterating instruction operands during instrumentation
-        // In future we might want to add those by parsing
-        // TMA instruction SASS string for uniform register
-        // dependency tracking
-
-        // Dump destination register information
-        if (trace->inst_type == TracerInstrType::INST_TMA) {
-          // No destination register for TMA instructions
-          fprintf(ctx_resultsFile[ctx], "0 ");
-        } else {
-          if (trace->inst.regular.GPRDst >= 0) { // GPR dst
-            fprintf(ctx_resultsFile[ctx], "1 ");
-            print_reg(trace->inst.regular.GPRDst);
-          } else
-            fprintf(ctx_resultsFile[ctx], "0 ");
-        }
-
-        // Print the opcode.
-        fprintf(ctx_resultsFile[ctx], "%s ",
-                id_to_opcode_map[trace->opcode_id].c_str());
-
-        // Dump source registers information
-        if (trace->inst_type == TracerInstrType::INST_TMA) {
-          // No source registers for TMA instructions
-          fprintf(ctx_resultsFile[ctx], "0 ");
-        } else {
-          // Handle source registers for regular instructions
-          unsigned src_count = 0;
-          for (int s = 0; s < MAX_SRC; s++) // GPR srcs count.
-            if (trace->inst.regular.GPRSrcs[s] >= 0)
-              src_count++;
-          fprintf(ctx_resultsFile[ctx], "%d ", src_count);
-
-          for (int s = 0; s < MAX_SRC; s++) { // GPR srcs.
-            if (trace->inst.regular.GPRSrcs[s] >= 0) {
-              print_reg(trace->inst.regular.GPRSrcs[s]);
-            }
-          }
-        }
-
-        // Print is_gmma_commit_group flag
-        bool is_gmma_instruction =
-            strstr(id_to_opcode_map[trace->opcode_id].c_str(), "GMMA") != NULL;
-        if (is_gmma_instruction) {
-          fprintf(ctx_resultsFile[ctx], "%d ", trace->is_gmma_commit_group);
-        }
-
-        // print addresses
-        std::bitset<32> mask(trace->active_mask & trace->predicate_mask);
-        if (trace->inst_type == TracerInstrType::INST_REGULAR &&
-            trace->inst.regular.is_mem) {
-          std::istringstream iss(id_to_opcode_map[trace->opcode_id]);
-          std::vector<std::string> tokens;
-          std::string token;
-          while (std::getline(iss, token, '.')) {
-            if (!token.empty())
-              tokens.push_back(token);
-          }
-          fprintf(ctx_resultsFile[ctx], "%d ",
-                  get_datawidth_from_opcode(tokens));
-
-          bool base_stride_success = false;
-          uint64_t base_addr = 0;
-          int stride = 0;
-          std::vector<long long> deltas;
-
-          if (enable_compress) {
-            // try base+stride format
-            base_stride_success = base_stride_compress(
-                trace->inst.regular.addrs, mask, base_addr, stride);
-            if (!base_stride_success) {
-              // if base+stride fails, try base+delta format
-              base_delta_compress(trace->inst.regular.addrs, mask, base_addr,
-                                  deltas);
-            }
-          }
-
-          if (base_stride_success && enable_compress) {
-            // base + stride format
-            fprintf(ctx_resultsFile[ctx], "%u 0x%lx %d ",
-                    address_format::base_stride, base_addr, stride);
-          } else if (!base_stride_success && enable_compress) {
-            // base + delta format
-            fprintf(ctx_resultsFile[ctx], "%u 0x%lx ",
-                    address_format::base_delta, base_addr);
-            for (int s = 0; s < deltas.size(); s++) {
-              fprintf(ctx_resultsFile[ctx], "%lld ", deltas[s]);
-            }
-          } else {
-            // list all the addresses
-            fprintf(ctx_resultsFile[ctx], "%u ", address_format::list_all);
-            for (int s = 0; s < 32; s++) {
-              if (mask.test(s))
-                fprintf(ctx_resultsFile[ctx], "0x%016lx ",
-                        trace->inst.regular.addrs[s]);
-            }
-          }
-        } else if (trace->inst_type == TracerInstrType::INST_TMA) {
-          // TMA instructions
-          // Check if the bitmask is all 0, if so, dont parse the TMA
-          // instruction
-          if ((trace->active_mask & trace->predicate_mask) == 0) {
-            // Dummy values to NOP TMA instruction
-            // transfer_size mbar_addr is_multicast byte_count oob_byte_count
-            // tma_base_delta base_addr transfer_count
-            fprintf(ctx_resultsFile[ctx], "0 0x0 0 0 0 4 0x0 0 ");
-          } else {
-            // Parse the TMA instruction
-            const char *opcode_str = id_to_opcode_map[trace->opcode_id].c_str();
-            TMATransferInfo_t info = nvbit_parse_tma_transfer_info(
-                ctx, opcode_str, trace->inst.tma.tma_param_handle,
-                trace->inst.tma.tma_param_handle_size);
-            // Get TMA transfer size, which is the data width
-            fprintf(ctx_resultsFile[ctx], "%d ", info.transfer_size);
-
-            // Get TMA mbar address
-            if (info.dst_memspace ==
-                InstrType::MemorySpace::DISTRIBUTED_SHARED) {
-              assert(info.dst.shared.is_mbar_valid &&
-                     "Invalid TMA mbar address");
-              fprintf(ctx_resultsFile[ctx], "0x%08x ",
-                      info.dst.shared.mbar_address);
-              if (info.is_multicast) {
-                // Using multicast
-                fprintf(ctx_resultsFile[ctx], "1 ");
-                // multicast flags
-                fprintf(ctx_resultsFile[ctx], "0x%04x ",
-                        info.multicast_cta_mask);
-              } else {
-                // Not using multicast
-                fprintf(ctx_resultsFile[ctx], "0 ");
-              }
-            } else {
-              // mbarrier address, set to 0
-              fprintf(ctx_resultsFile[ctx], "0x%08x ", 0);
-              // Not using multicast
-              fprintf(ctx_resultsFile[ctx], "0 ");
-            }
-            // This is the actual transfer byte count
-            fprintf(ctx_resultsFile[ctx], "%ld ", info.byte_count);
-
-            // This is the oob transfer byte count, if using tensor copy
-            if (info.is_tensor) {
-              fprintf(ctx_resultsFile[ctx], "%ld ",
-                      info.tensor.oob_transfer_count * info.transfer_size);
-            } else {
-              fprintf(ctx_resultsFile[ctx], "%ld ", 0);
-            }
-
-            // Determine the global address using callback API
-            // Callback collects inbound (non-OOB) addresses
-            struct TMAAddrCollector {
-              std::vector<uint64_t> addrs;
-              static void callback(const TMAElementAddress_t *raw_addrs,
-                                   size_t count, void *user_data) {
-                auto *self = static_cast<TMAAddrCollector *>(user_data);
-                for (size_t i = 0; i < count; i++) {
-                  if (!raw_addrs[i].is_oob) {
-                    self->addrs.push_back(raw_addrs[i].address);
-                  }
-                }
-              }
-            };
-            TMAAddrCollector collector;
-
-            if (info.src_memspace == InstrType::MemorySpace::GLOBAL) {
-              nvbit_parse_tma_src_addrs(ctx, opcode_str,
-                                        trace->inst.tma.tma_param_handle,
-                                        trace->inst.tma.tma_param_handle_size,
-                                        TMAAddrCollector::callback, &collector);
-            } else if (info.dst_memspace == InstrType::MemorySpace::GLOBAL) {
-              nvbit_parse_tma_dst_addrs(ctx, opcode_str,
-                                        trace->inst.tma.tma_param_handle,
-                                        trace->inst.tma.tma_param_handle_size,
-                                        TMAAddrCollector::callback, &collector);
-            }
-
-            size_t global_count_inbound = collector.addrs.size();
-            uint64_t *global_addrs = collector.addrs.data();
-
-            // Try to compress memory addresses
-            uint64_t base_addr = 0;
-            std::vector<long long> deltas;
-            if (enable_compress) {
-              base_delta_compress_tma(global_addrs, global_count_inbound, mask,
-                                      base_addr, deltas);
-            }
-
-            if (enable_compress) {
-              fprintf(ctx_resultsFile[ctx], "%u 0x%lx ",
-                      address_format::tma_base_delta, base_addr);
-              fprintf(ctx_resultsFile[ctx], "%d ", info.transfer_count);
-              for (size_t s = 0; s < deltas.size(); s++) {
-                fprintf(ctx_resultsFile[ctx], "%lld ", deltas[s]);
-              }
-            } else {
-              // list all the addresses
-              fprintf(ctx_resultsFile[ctx], "%u ",
-                      address_format::tma_list_all);
-              fprintf(ctx_resultsFile[ctx], "%d ", info.transfer_count);
-              for (size_t s = 0; s < global_count_inbound; s++) {
-                fprintf(ctx_resultsFile[ctx], "0x%016lx ", global_addrs[s]);
-              }
-            }
-          }
-        } else {
-          fprintf(ctx_resultsFile[ctx], "0 ");
-        }
-
-        // Print the immediate values
-        fprintf(ctx_resultsFile[ctx], "%ld ", trace->inst.regular.imm);
-        fprintf(ctx_resultsFile[ctx], "%ld ", trace->inst.regular.imm2);
-
-        if (allow_reg_val_tracing) {
-          // Trace version will be 6, a Val|NoVal will follow the immediate
-          // number Print the register values if dump_reg_val is true
-          if (dump_reg_val) {
-            fprintf(ctx_resultsFile[ctx], "Val ");
-
-            // dump destination register values if GPRDst >= 0
-            if (trace->inst.regular.GPRDst >= 0) {
-              auto minmax_pair =
-                  std::minmax_element(std::begin(trace->inst.regular.desRegVal),
-                                      std::end(trace->inst.regular.desRegVal));
-              bool is_all_same = (*minmax_pair.first == *minmax_pair.second);
-              if (!is_all_same) {
-                fprintf(ctx_resultsFile[ctx], "32 ");
-                for (int tid = 0; tid < 32; tid++) {
-                  fprintf(ctx_resultsFile[ctx], "%08x ",
-                          trace->inst.regular.desRegVal[tid]);
-                }
-              } else {
-                fprintf(ctx_resultsFile[ctx], "1 ");
-                fprintf(ctx_resultsFile[ctx], "%08x ", *minmax_pair.first);
-              }
-            }
-            // Build the per-src hi pointer: nullptr means emit lo as 32-bit;
-            // non-null means fuse (hi << 32) | lo into 64-bit. Opcode-specific
-            // wiring of auxRegVals lives here and nowhere else below.
-            const uint32_t *src_hi[MAX_SRC] = {nullptr};
-            if (opcode == "SYNCS.EXCH.64") {
-              // SYNCS.EXCH.64's 64-bit src2: srcRegVals[1] lo + auxRegVals hi.
-              src_hi[1] = trace->inst.regular.auxRegVals;
-            }
-
-            for (int s = 0; s < MAX_SRC; s++) {
-              if (trace->inst.regular.GPRSrcs[s] < 0)
-                continue;
-              const uint32_t *lo = trace->inst.regular.srcRegVals[s];
-              const uint32_t *hi = src_hi[s];
-              if (hi != nullptr) {
-                uint64_t v64[32];
-                for (int tid = 0; tid < 32; tid++)
-                  v64[tid] = ((uint64_t)hi[tid] << 32) | (uint64_t)lo[tid];
-                auto mm = std::minmax_element(std::begin(v64), std::end(v64));
-                if (*mm.first != *mm.second) {
-                  fprintf(ctx_resultsFile[ctx], "32 ");
-                  for (int tid = 0; tid < 32; tid++)
-                    fprintf(ctx_resultsFile[ctx], "%016lx ", v64[tid]);
-                } else {
-                  fprintf(ctx_resultsFile[ctx], "1 %016lx ", *mm.first);
-                }
-              } else {
-                auto mm = std::minmax_element(lo, lo + 32);
-                if (*mm.first != *mm.second) {
-                  fprintf(ctx_resultsFile[ctx], "32 ");
-                  for (int tid = 0; tid < 32; tid++)
-                    fprintf(ctx_resultsFile[ctx], "%08x ", lo[tid]);
-                } else {
-                  fprintf(ctx_resultsFile[ctx], "1 %08x ", *mm.first);
-                }
-              }
-            }
-          } else {
-            fprintf(ctx_resultsFile[ctx], "NoVal ");
-          }
-        }
-        fprintf(ctx_resultsFile[ctx], "\n");
-
-        num_processed_bytes += sizeof(inst_trace_t);
+  CUcontext ctx=(CUcontext)args;
+  char *recv_buffer=(char *)malloc(CHANNEL_SIZE);
+  while(recv_thread_started) {
+    uint32_t bytes=0;
+    if(!recv_thread_receiving || !(bytes=channel_host.recv(recv_buffer,CHANNEL_SIZE)))
+      continue;
+    auto *records=reinterpret_cast<inst_trace_t *>(recv_buffer);
+    uint32_t available=bytes/sizeof(inst_trace_t),count=0;
+    while(count<available && records[count].cta_id_x!=-1) ++count;
+    if(defer_formatting) {
+      if(count) {
+        FILE *file=ctx_resultsFile[ctx];
+        accelsim_trace::write_capture_records(file,records,count);
+        for(uint32_t i=0;i<count;++i)
+          if(records[i].inst_type==INST_TMA &&
+             (records[i].active_mask & records[i].predicate_mask))
+            accelsim_trace::write_capture_tma(file,i,
+                capture_tma(ctx,&records[i],id_to_opcode_map[records[i].opcode_id]));
       }
+    } else {
+      for(uint32_t i=0;i<count;++i) {
+        const std::string opcode=id_to_opcode_map[records[i].opcode_id];
+        ctx_formatters[ctx]->write(&records[i],opcode,capture_tma(ctx,&records[i],opcode));
+      }
+    }
+    if(count<available) {
+      if(!defer_formatting && ctx_formatters[ctx]) ctx_formatters[ctx]->reset();
+      recv_thread_receiving=false;
     }
   }
   free(recv_buffer);
-
   return NULL;
 }
 
@@ -1681,6 +1171,13 @@ void nvbit_at_ctx_term(CUcontext ctx) {
   if (recv_thread_started) {
     recv_thread_started = false;
     pthread_join(recv_thread, NULL);
+    if(defer_formatting) {
+      for(FILE *file:ctx_deferred_files[ctx]) {
+        accelsim_trace::finish_capture(file,id_to_opcode_map);
+        if(fclose(file)) throw std::runtime_error("Closing collected GPU records failed");
+      }
+      ctx_deferred_files.erase(ctx);
+    }
   }
 }
 
