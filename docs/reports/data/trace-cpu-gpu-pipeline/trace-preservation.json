@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "batches": 15,
+  "captures": 45,
+  "numerically_checked_launch_outputs": 180,
+  "verified_trace_kernels": 180,
+  "verified_instruction_records": 17577240,
+  "instruction_counts_per_kernel": {
+    "fadd-c1-o0": [
+      71711
+    ],
+    "imad-c1-o0": [
+      71709
+    ],
+    "shfl-c1-o0": [
+      149534
+    ]
+  },
+  "scope": "All one-CTA/one-warp validation captures: every grouped instruction string equals its raw record, including PC, masks, registers, immediates and addresses. This is trace preservation, not timing accuracy validation.",
+  "source_identities": {
+    "run_hw_trace.py": "4b55a0ac159cc3ebdb04d0c51988ae94e34325959040ba22a64b6608264904b2",
+    "trace_pipeline.py": "ac87d0a45f7cb46c149566217d3c1e98b14c6471300d0e0afb569c5b202cca03"
+  },
+  "bulk_verification": "/mnt/hdd0/work/ncu/gpu-uarchsim/workspaces/gluck/research-trace-cpu-gpu-pipeline-accel-sim-trace-cpu-gpu-9e9ad7994355/experiments/trace-cpu-gpu-validation-20261023T051554Z/independent-verification/verification.json"
+}

@@ -1,0 +1,5 @@
+{
+  "recorded_utc": "2026-10-23T05:48:08.080498+00:00",
+  "allowed_host_logical_cpus": 32,
+  "gpu_query": "NVIDIA RTX A6000, GPU-088c2fff-3078-7fc9-c630-87034d7184fd, 580.82.07\nNVIDIA RTX A6000, GPU-fef35f04-a5e2-4c3d-fe8b-f4f40be77c20, 580.82.07\n"
+}

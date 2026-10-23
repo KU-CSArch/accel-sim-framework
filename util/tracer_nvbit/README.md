@@ -58,6 +58,68 @@ This will generate `.traceg` and `kernelslist.g` files that are ready for Accel-
 
 ---
 
+## Overlap GPU capture and CPU postprocessing
+
+Set `RUN_ROOT` to a fresh task-owned run directory. The launcher can start the
+next GPU capture while CPU workers group and compress completed trace files:
+
+```bash
+./run_hw_trace.py -B rodinia-3.1 -D 0 \
+  --postprocess-workers 1 --max-pending-postprocess 2 \
+  --postprocess-threads 2 --keep-raw --results-dir "$RUN_ROOT"
+```
+
+`--postprocess-workers 0` is the default and preserves serial execution. One
+launcher owns one GPU capture stream. Each completed capture is submitted to a
+CPU worker; a bundle becomes ready for simulation only after that worker exits
+successfully. `--max-pending-postprocess` bounds running and queued CPU bundles,
+so GPU admission waits when the CPU queue reaches that limit. Its default is
+twice the worker count. `--postprocess-threads` passes the existing `-j` option to
+each postprocessor; it does not set a process-wide CPU affinity limit.
+
+The generated scripts are separate:
+
+- `run_capture.sh` runs the application under NVBit.
+- `run_postprocess.sh` groups completed traces and writes replay files. It has no
+  visible CUDA devices and removes CUDA injection/preload variables.
+- `run.sh` runs both scripts serially for manual use.
+
+The launcher records per-phase stdout, stderr and JSON receipts containing the
+command, exit status and host timestamps. A failed capture does not submit CPU
+work. CPU failures produce a nonzero launcher exit. Submitted workers finish
+before the launcher exits, and a repeated run directory waits for its previous
+worker before any files are reused. Raw files are retained on a reported
+postprocessor failure; use `--keep-raw` to retain them on success as well.
+
+`--results-dir` selects the run directories rather than the default `hw_run`
+location. If traces and logs use separate disks, create each run directory's
+`traces` link to its task-owned trace directory before launch. The validation
+script preserves an example of this layout. Do not point a run at an active
+bundle owned by another collector.
+
+Raw xz compression can also be removed from the live capture with the tracer's
+existing environment option:
+
+```bash
+TRACE_FILE_COMPRESS=0 ./run_hw_trace.py -B rodinia-3.1 -D 0 \
+  --postprocess-workers 1 --postprocess-threads 2 \
+  --max-pending-postprocess 2 --results-dir "$RUN_ROOT"
+```
+
+In that form, live capture writes uncompressed raw text, and the CPU worker
+writes the compressed `.tracez` replay files. The default replay format remains
+`tracez`; `--postprocess-format text` selects the existing `.traceg` format.
+Uncompressed raw files need more temporary storage. Neither option moves GPU
+instrumentation, channel draining or raw text formatting out of live capture.
+The finite NVBit channel must still be drained while the kernel executes.
+
+See the [source plan](../../docs/plans/trace-cpu-gpu-pipeline/PLAN.md) and
+[validation report](../../docs/reports/trace-cpu-gpu-pipeline.md) for the exact
+boundary, commands, equivalence checks and measured throughput. These host
+collection timings are separate from native GPU kernel performance.
+
+---
+
 ## 📦 Trace File Structure
 
 Each trace folder contains:
